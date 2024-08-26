@@ -8,7 +8,7 @@ Accept: application/json
 POST {{JobWebApi_HostAddress}}/api/Job
 Content-Type:application/json
 {
-  "jobId": "67890",
+  "jobId": "678901",
   "jobTitle": "Marketing Manager",
   "jobDescription": "Plan and execute marketing campaigns. Strong skills in SEO and content creation needed.",
   "salary": 180000

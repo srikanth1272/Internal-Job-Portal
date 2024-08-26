@@ -1,4 +1,5 @@
 using IJPMvcApp.Data;
+using IJPMvcApp.Filters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add<CustomExceptionFilter>();
+});
 
 var app = builder.Build();
 
