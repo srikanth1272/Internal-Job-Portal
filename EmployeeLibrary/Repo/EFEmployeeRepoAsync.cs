@@ -12,7 +12,7 @@ namespace EmployeeLibrary.Repo
     public class EFEmployeeRepoAsync : IEmployeeRepoAsync
     {
         EmployeeDBContext ctx=new EmployeeDBContext();
-        public async Task AddEmployeeDetails(Employee employee)
+        public async Task AddEmployeeDetailsAsync(Employee employee)
         {
             try
             {
@@ -38,13 +38,13 @@ namespace EmployeeLibrary.Repo
             }
         }
 
-        public async Task<List<Employee>> GetAllEmployeeDetails()
+        public async Task<List<Employee>> GetAllEmployeeDetailsAsync()
         {
             List<Employee> employees = await ctx.Employees.ToListAsync();
             return employees;
         }
 
-        public async Task<List<Employee>> GetEmpByJobId(string jobId)
+        public async Task<List<Employee>> GetEmpByJobIdAsync(string jobId)
         {
             List<Employee> employees = await (from e in ctx.Employees where e.JobId == jobId select e).ToListAsync();
             if (employees.Count > 0)
@@ -53,7 +53,7 @@ namespace EmployeeLibrary.Repo
                 throw new EmployeeException("No employee with this JobId");
         }
 
-        public async Task<Employee> GetEmployee(string empId)
+        public async Task<Employee> GetEmployeeAsync(string empId)
         {
             try
             {
@@ -66,11 +66,11 @@ namespace EmployeeLibrary.Repo
             }
         }
 
-        public async Task RemoveEmployeeDetails(string empId)
+        public async Task RemoveEmployeeDetailsAsync(string empId)
         {
             try
             {
-                Employee employee = await GetEmployee(empId);
+                Employee employee = await GetEmployeeAsync(empId);
                 ctx.Employees.Remove(employee);
                 await ctx.SaveChangesAsync();
             }
@@ -94,11 +94,11 @@ namespace EmployeeLibrary.Repo
             }
         }
 
-        public async Task UpdateEmployeeDetails(string empId, Employee employee)
+        public async Task UpdateEmployeeDetailsAsync(string empId, Employee employee)
         {
             try
             {
-                Employee employee1 = await GetEmployee(empId);
+                Employee employee1 = await GetEmployeeAsync(empId);
                 employee1.EmpName = employee.EmpName;
                 employee1.PhoneNo = employee.PhoneNo;
                 employee1.EmailId = employee.EmailId;
