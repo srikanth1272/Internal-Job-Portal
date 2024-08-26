@@ -13,6 +13,18 @@ Content-Type: application/json
     "job": null,
     "skill": null
 }
+###
+POST {{JobSkillWebApi_HostAddress}}/api/JobSkill/Job
+Content-Type: application/json
+{
+    "jobId": "6E4747"
+}
+###
+POST {{JobSkillWebApi_HostAddress}}/api/JobSkill/Skill
+Content-Type: application/json
+{
+    "skillId": "ABC567"
+}
 
 ###
 GET {{JobSkillWebApi_HostAddress}}/api/JobSkill/6E1234/ABC123
@@ -34,5 +46,5 @@ Content-Type: application/json
     "skill": null
 }
 ###
-DELETE {{FlightScheduleWebapi_HostAddress}}/api/FlightSchedule/6E1234/2024-08-22
+DELETE {{JobSkillWebApi_HostAddress}}/api/JobSkill/6E1234/ABC123
 ###

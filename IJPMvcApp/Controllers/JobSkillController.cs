@@ -15,14 +15,14 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: JobSkillController/Details/5
-        public async Task<ActionResult> Details(string jobId,string skillId)
+        public async Task<ActionResult> Details(string jobId, string skillId)
         {
-            JobSkill jobskill=await client.GetFromJsonAsync<JobSkill>(""+jobId+"/"+skillId);
+            JobSkill jobskill = await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
             return View(jobskill);
         }
         public async Task<ActionResult> DetailsByJobId(string jobId)
         {
-            List<JobSkill> jobskills = await client.GetFromJsonAsync<List<JobSkill>>("GetByJobId" + jobId );
+            List<JobSkill> jobskills = await client.GetFromJsonAsync<List<JobSkill>>("GetByJobId/" + jobId);
             return View(jobskills);
         }
         public async Task<ActionResult> DetailsBySkillId(string skillId)
@@ -52,46 +52,25 @@ namespace IJPMvcApp.Controllers
                 return View();
             }
         }
-        public async Task<ActionResult> CreateJob(Job job)
-        {
-            try
-            {
-                await client.PostAsJsonAsync("Job", job);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        public async Task<ActionResult> CreateSkill(Skill skill)
-        {
-            try
-            {
-                await client.PostAsJsonAsync("", skill);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
 
         // GET: JobSkillController/Edit/5
-        public async Task<ActionResult> Edit(string jobId,string skillId)
+        [Route("JobSkill/Edit/{jobId}/{skillId}")]
+        public async Task<ActionResult> Edit(string jobId, string skillId)
         {
-            JobSkill jobskill =await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
+            JobSkill jobskill = await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
             return View(jobskill);
         }
 
         // POST: JobSkillController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(string jobId,JobSkill jobSkill)
+        [Route("JobSkill/Edit/{jobId}/{skillId}")]
+        public async Task<ActionResult> Edit(string jobId,string skillId, JobSkill jobSkill)
         {
             try
             {
-                await client.PutAsJsonAsync("", jobSkill);
+                await client.PutAsJsonAsync(""+jobId+"/"+skillId, jobSkill);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -101,7 +80,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: JobSkillController/Delete/5
-        public async Task<ActionResult> Delete(string jobId,string skillId)
+        public async Task<ActionResult> Delete(string jobId, string skillId)
         {
             JobSkill jobskill = await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
             return View(jobskill);
@@ -110,7 +89,7 @@ namespace IJPMvcApp.Controllers
         // POST: JobSkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(string jobId,string skillId, IFormCollection collection)
+        public async Task<ActionResult> Delete(string jobId, string skillId, IFormCollection collection)
         {
             try
             {
@@ -122,36 +101,5 @@ namespace IJPMvcApp.Controllers
                 return View();
             }
         }
-       
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteJob(string jobId, IFormCollection collection)
-        {
-            try
-            {
-                await client.DeleteAsync("Job" + jobId );
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteSkill(string skillId, IFormCollection collection)
-        {
-            try
-            {
-                await client.DeleteAsync("" + skillId);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
     }
-}
+ }

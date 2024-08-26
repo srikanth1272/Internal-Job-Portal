@@ -40,12 +40,6 @@
                 @Html.ActionLink("Edit", "Edit", new { jobId=item.JobId,skillId=item.SkillId }) |
                     @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }) |
                     @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId })
-                    @Html.ActionLink("CreateJob", "CreateJob", new { jobId = item.JobId }) |
-                    @Html.ActionLink("CreateSkill", "CreateSkill", new { skillId = item.SkillId }) |
-                    @Html.ActionLink("DetailsByJobId", "DetailsByJobId", new { jobId = item.JobId, skillId = item.SkillId }) |
-                    @Html.ActionLink("DetailsBySkillId", "DetailsBySkillId", new { jobId = item.JobId, skillId = item.SkillId }) |
-                    @Html.ActionLink("DeleteJob", "DeleteJob", new { jobId = item.JobId})
-                    @Html.ActionLink("DeleteSkill", "DeleteSkill", new {  skillId = item.SkillId })
             </td>
         </tr>
 }
