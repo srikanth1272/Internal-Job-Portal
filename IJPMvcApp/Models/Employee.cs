@@ -13,7 +13,5 @@
         public int TotalExperience { get; set; }
 
         public string JobId { get; set; } = null!;
-
-        public virtual Job? Job { get; set; } = null!;
     }
 }
