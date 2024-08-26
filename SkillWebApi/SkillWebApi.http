@@ -4,3 +4,62 @@ GET {{SkillWebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{SkillWebApi_HostAddress}}/api/Skill
+Accept:application/json
+###
+
+POST {{SkillWebApi_HostAddress}}/api/Skill
+Content-Type:application/json
+{
+  "skillId": "S12345",
+  "skillName": "Project Management",
+  "skillLevel": "I",
+  "skillCategory": "Management"
+}
+###
+
+GET {{SkillWebApi_HostAddress}}/api/Skill
+Accept:application/json
+###
+
+PUT {{SkillWebApi_HostAddress}}/api/Skill/S12345
+Content-Type:application/json
+{
+  "skillId": "S12345",
+  "skillName": "Team Management",
+  "skillLevel": "A",
+  "skillCategory": "Management"
+}
+###
+
+DELETE {{SkillWebApi_HostAddress}}/api/Skill/S12345
+Accept:application/json
+###
+
+
+GET {{SkillWebApi_HostAddress}}/api/Skill/BySkillLevel/B
+Accept:application/json
+###
+
+GET {{SkillWebApi_HostAddress}}/api/Skill/BySkillCategory/Programming
+Accept:application/json
+###
+
+GET {{SkillWebApi_HostAddress}}/api/Skill
+Accept:application/json
+###
+
+DELETE {{SkillWebApi_HostAddress}}/api/Skill/S12349
+Accept:application/json
+###
+
+POST {{SkillWebApi_HostAddress}}/api/Skill
+Content-Type:application/json
+{
+  "skillId": "S12345",
+  "skillName": "Team Management",
+  "skillLevel": "A",
+  "skillCategory": "Management"
+}
+###

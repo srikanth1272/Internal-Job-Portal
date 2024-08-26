@@ -1,6 +1,50 @@
 @EmployeeSkillWebApi_HostAddress = http://localhost:5064
 
-GET {{EmployeeSkillWebApi_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill
+Accept:Application/json
+###
 
+GET {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/ByempId/6E1234
+Accept:Application/json
+###
+GET {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/ByskillId/2e1234
+Accept:Application/json
+###
+
+POST {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill
+Content-Type:application/json
+{
+  "empId": "6E1235",
+  "skillId": "2E1235",
+  "skillExperience":12
+}
+###
+POST {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/Employee
+Content-Type:application/json
+{
+  "empId": "6E1236"
+}
+###
+POST {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/Skill
+Content-Type:application/json
+{
+  "skillId": "2E1237"
+}
+###
+
+PUT {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/6E1235/2E1235
+Content-Type:application/json
+{
+  "empId": "6E1235",
+  "skillId": "2E1235,
+  "skillExperience":20
+}
+###
+DELETE {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/6E1235/2e1234
+###
+
+DELETE {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/ByEmployee/6E1235
+###
+
+DELETE {{EmployeeSkillWebApi_HostAddress}}/api/EmployeeSkill/By/2E123
 ###

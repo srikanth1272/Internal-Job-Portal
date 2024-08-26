@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IJPMvcApp.Models.Job>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JobDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Salary)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                    @Html.TextAreaFor(modelItem => item.JobDescription, new { @class = "form-control", rows = "4", cols = "10" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { jobId=item.JobId  }) |
+                @Html.ActionLink("Details", "Details", new {  jobId=item.JobId }) |
+                @Html.ActionLink("Delete", "Delete", new {  jobId=item.JobId})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
