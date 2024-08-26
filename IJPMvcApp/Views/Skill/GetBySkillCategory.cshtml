@@ -1,0 +1,55 @@
+﻿@model IEnumerable<IJPMvcApp.Models.Skill>
+
+@{
+    ViewData["Title"] = "GetBySkillCategory";
+}
+
+<h1>GetBySkillCategory</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillCategory)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillCategory)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}     
+
+    </tbody>
+</table>
+<a asp-action="Index">Back to List</a>
