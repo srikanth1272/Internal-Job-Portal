@@ -53,6 +53,9 @@ namespace EmployeeWebApi.Controllers
             try
             {
                 await employeeRepo.AddEmployeeDetails(employee);
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                await client.PostAsJsonAsync("Employee/", new { jobId = employee.JobId });
+
                 return Created($"api/Employee/{employee.EmpId}", employee);
             }
             catch (EmployeeException ex)
