@@ -1,6 +1,55 @@
 @JobPostWebApi_HostAddress = http://localhost:5117
 
-GET {{JobPostWebApi_HostAddress}}/weatherforecast/
+GET {{JobPostWebApi_HostAddress}}/api/JobPost/
 Accept: application/json
 
 ###
+
+GET {{JobPostWebApi_HostAddress}}/api/JobPost/6
+Accept: application/json
+
+###
+
+GET {{JobPostWebApi_HostAddress}}/api/JobPost/ByJobId/AB123C
+Accept: application/json
+
+###
+
+POST {{JobPostWebApi_HostAddress}}/api/JobPost/
+Content-Type: application/json
+{
+  "jobId": "AB124C",
+  "dateofPosting": "2024-08-26",
+  "lastDatetoApply": "2024-08-29",
+  "vacancies": 2
+}
+
+###
+POST {{JobPostWebApi_HostAddress}}/api/JobPost/Job/
+Content-Type: application/json
+{
+  "jobId" : "AB124C"
+}
+
+###
+
+PUT {{JobPostWebApi_HostAddress}}/api/JobPost/8
+Content-Type: application/json
+{
+  "postId":8,
+  "jobId": "AB124C",
+  "dateofPosting": "2024-08-26",
+  "lastDatetoApply": "2024-08-29",
+  "vacancies": 4
+}
+###
+
+DELETE {{JobPostWebApi_HostAddress}}/api/JobPost/8
+Accept: application/json
+###
+
+DELETE {{JobPostWebApi_HostAddress}}/api/JobPost/Job/AB124C
+Accept: application/json
+###
+
+

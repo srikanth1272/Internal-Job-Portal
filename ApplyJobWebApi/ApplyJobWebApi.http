@@ -1,6 +1,66 @@
 @ApplyJobWebApi_HostAddress = http://localhost:5086
 
-GET {{ApplyJobWebApi_HostAddress}}/weatherforecast/
+GET {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/
 Accept: application/json
 
+###
+
+GET {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/1/ACT010
+Accept: application/json
+
+###
+
+GET {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/ByPostId/1
+Accept: application/json
+
+###
+GET {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/ByEmpId/ACT010
+Accept: application/json
+
+###
+
+POST {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/
+Content-Type: application/json
+{
+  "postId": 1,
+  "empId": "ACT010",
+  "appliedDate": "2024-08-25",
+  "applicationStatus": "Reviewing"
+}
+
+###
+POST {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/JobPost/
+Content-Type: application/json
+{
+  "postId" : 1
+}
+
+###
+POST {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/Employee/
+Content-Type: application/json
+{
+  "empId" : "ACT010"
+}
+
+###
+
+PUT {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/1/ACT010
+Content-Type: application/json
+{
+  "postId": 1,
+  "empId": "ACT010",
+  "appliedDate": "2024-08-25",
+  "applicationStatus": "Accepted"
+}
+###
+
+DELETE {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/1/ACT010
+Accept: application/json
+###
+
+DELETE {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/JobPost/1
+Accept: application/json
+###
+DELETE {{ApplyJobWebApi_HostAddress}}/api/ApplyJob/Employee/ACT010
+Accept: application/json
 ###
