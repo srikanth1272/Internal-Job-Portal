@@ -93,6 +93,8 @@ namespace JobPostWebApi.Controllers
         {
             try
             {
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                await client.DeleteAsync("JobPost/" + postId);
                 await repo.RemoveJobPostAsync(postId);
                 return Ok();
             }
@@ -106,6 +108,7 @@ namespace JobPostWebApi.Controllers
         {
             try
             {
+               
                 await repo.RemoveJobAsync(jobId);
                 return Ok();
             }
