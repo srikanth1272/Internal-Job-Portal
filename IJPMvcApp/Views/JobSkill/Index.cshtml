@@ -1,0 +1,53 @@
+﻿@model IEnumerable<IJPMvcApp.Models.JobSkill>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SkillId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Experience)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SkillId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Experience)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { jobId=item.JobId,skillId=item.SkillId }) |
+                    @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }) |
+                    @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId })
+                    @Html.ActionLink("CreateJob", "CreateJob", new { jobId = item.JobId }) |
+                    @Html.ActionLink("CreateSkill", "CreateSkill", new { skillId = item.SkillId }) |
+                    @Html.ActionLink("DetailsByJobId", "DetailsByJobId", new { jobId = item.JobId, skillId = item.SkillId }) |
+                    @Html.ActionLink("DetailsBySkillId", "DetailsBySkillId", new { jobId = item.JobId, skillId = item.SkillId }) |
+                    @Html.ActionLink("DeleteJob", "DeleteJob", new { jobId = item.JobId})
+                    @Html.ActionLink("DeleteSkill", "DeleteSkill", new {  skillId = item.SkillId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

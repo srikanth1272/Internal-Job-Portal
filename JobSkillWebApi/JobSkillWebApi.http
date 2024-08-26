@@ -1,6 +1,38 @@
 @JobSkillWebApi_HostAddress = http://localhost:5210
 
-GET {{JobSkillWebApi_HostAddress}}/weatherforecast/
+GET {{JobSkillWebApi_HostAddress}}/api/JobSkill/
 Accept: application/json
 
+###
+POST {{JobSkillWebApi_HostAddress}}/api/JobSkill/
+Content-Type: application/json
+{
+    "jobId": "6E1234",
+    "skillId": "ABC123",
+    "experience": 10,
+    "job": null,
+    "skill": null
+}
+
+###
+GET {{JobSkillWebApi_HostAddress}}/api/JobSkill/6E1234/ABC123
+Accept: application/json
+###
+GET {{JobSkillWebApi_HostAddress}}/api/JobSkill/GetByJobId/6E1234
+Accept: application/json
+###
+GET {{JobSkillWebApi_HostAddress}}/api/JobSkill/ABC123
+Accept: application/json
+###
+PUT {{JobSkillWebApi_HostAddress}}/api/JobSkill/6E1234/ABC123
+Content-Type: application/json
+{
+      "jobId": "6E1234",
+    "skillId": "ABC123",
+    "experience": 20,
+    "job": null,
+    "skill": null
+}
+###
+DELETE {{FlightScheduleWebapi_HostAddress}}/api/FlightSchedule/6E1234/2024-08-22
 ###
