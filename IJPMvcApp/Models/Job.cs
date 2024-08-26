@@ -2,7 +2,7 @@
 {
     public class Job
     {
-        public string JobId { get; set; } = null!;
+        
 
         public string JobTitle { get; set; } = null!;
 

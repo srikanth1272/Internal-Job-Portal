@@ -2,7 +2,7 @@
 {
     public class Skill
     {
-        public string SkillId { get; set; } = null!;
+        
 
         public string SkillName { get; set; } = null!;
 
