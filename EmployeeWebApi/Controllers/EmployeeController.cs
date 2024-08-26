@@ -54,7 +54,9 @@ namespace EmployeeWebApi.Controllers
             {
                 await employeeRepo.AddEmployeeDetails(employee);
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
-                await client.PostAsJsonAsync("Employee/", new { jobId = employee.JobId });
+                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
+                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
 
                 return Created($"api/Employee/{employee.EmpId}", employee);
             }
