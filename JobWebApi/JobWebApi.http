@@ -4,3 +4,45 @@ GET {{JobWebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{JobWebApi_HostAddress}}/api/Job
+Content-Type:application/json
+{
+  "jobId": "67890",
+  "jobTitle": "Marketing Manager",
+  "jobDescription": "Plan and execute marketing campaigns. Strong skills in SEO and content creation needed.",
+  "salary": 180000
+}
+###
+PUT {{JobWebApi_HostAddress}}/api/Job/123456
+Content-Type:application/json
+{
+  "jobId": "123456",
+  "jobTitle": "Engineer",
+  "jobDescription": "Develop and maintain software applications. Experience with Java and Python required.",
+  "salary": 80000
+}
+###
+
+GET {{JobWebApi_HostAddress}}/api/Job
+Accept:application/json
+###
+
+GET {{JobWebApi_HostAddress}}/api/Job/123456
+Accept:application/json
+###
+
+POST {{JobWebApi_HostAddress}}/api/Job
+Content-Type:application/json
+{
+  "jobId": "678904",
+  "jobTitle": "Marketing Manager",
+  "jobDescription": "Plan and execute marketing campaigns. Strong skills in SEO and content creation needed.",
+  "salary": 180000
+}
+###
+
+DELETE {{JobWebApi_HostAddress}}/api/Job/123456
+Accept: application/json
+###
+
