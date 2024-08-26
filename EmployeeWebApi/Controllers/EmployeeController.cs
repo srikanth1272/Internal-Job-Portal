@@ -17,7 +17,7 @@ namespace EmployeeWebApi.Controllers
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
-            List<Employee> employees=await employeeRepo.GetAllEmployeeDetails();
+            List<Employee> employees=await employeeRepo.GetAllEmployeeDetailsAsync();
             return Ok(employees);
         }
 
@@ -26,7 +26,7 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
-                Employee employee = await employeeRepo.GetEmployee(empId);
+                Employee employee = await employeeRepo.GetEmployeeAsync(empId);
                 return Ok(employee);
             }
             catch (EmployeeException ex)
@@ -39,7 +39,7 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
-                List<Employee> employees = await employeeRepo.GetEmpByJobId(jobId);
+                List<Employee> employees = await employeeRepo.GetEmpByJobIdAsync(jobId);
                 return Ok(employees);
             }
             catch (EmployeeException ex)
@@ -52,7 +52,7 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
-                await employeeRepo.AddEmployeeDetails(employee);
+                await employeeRepo.AddEmployeeDetailsAsync(employee);
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
                 await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
@@ -83,7 +83,7 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
-                await employeeRepo.UpdateEmployeeDetails(empId, employee);
+                await employeeRepo.UpdateEmployeeDetailsAsync(empId, employee);
                 return Ok(employee);
             }
             catch (EmployeeException ex)
@@ -96,7 +96,7 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
-                await employeeRepo.RemoveEmployeeDetails(empId);
+                await employeeRepo.RemoveEmployeeDetailsAsync(empId);
                 return Ok();
             }
             catch (EmployeeException ex)
