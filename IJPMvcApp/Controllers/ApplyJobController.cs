@@ -36,7 +36,10 @@ namespace IJPMvcApp.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            ApplyJob appliedJob = new ApplyJob();
+            appliedJob.ApplicationStatus = "Reviewing";
+            appliedJob.AppliedDate = DateOnly.FromDateTime(DateTime.Now);
+            return View(appliedJob);
         }
 
         [HttpPost]
