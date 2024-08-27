@@ -78,7 +78,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: SkillController/Delete/5
-        [Route("Skill/Delete/skillId")]
+        [Route("Skill/Delete/{skillId}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string skillId)
         {
@@ -89,7 +89,7 @@ namespace IJPMvcApp.Controllers
         // POST: SkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Skill/Delete/skillId")]
+        [Route("Skill/Delete/{skillId}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
         {
