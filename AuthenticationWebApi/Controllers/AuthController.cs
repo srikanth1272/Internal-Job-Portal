@@ -14,19 +14,19 @@ namespace AuthenticationWebApi.Controllers
         private string GenerateJWT(string userName, string role, string secretKey)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            Claim[] claims = new Claim[] {
+            var credentials = new SigningCredentials(securityKey,
+                                SecurityAlgorithms.HmacSha256);
+            Claim[] claims = new Claim[]{
                 new Claim(ClaimTypes.Name, userName),
                 new Claim(ClaimTypes.Role, role),
             };
             var token = new JwtSecurityToken(
-                issuer: "https://www.allcloud.com",
-                audience: "https://www.allcloud.com",
+                issuer: "http://www.allcloud.in",
+                audience: "http://www.allcloud.in",
                 expires: DateTime.Now.AddHours(2),
                 claims: claims,
                 signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
-
         }
         [HttpGet("{userName}/{role}/{secretKey}")]
         public ActionResult GetToken(string userName, string role, string secretKey)

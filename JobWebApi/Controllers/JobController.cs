@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using JobLibrary;
 using JobLibrary.Models;
 using JobLibrary.Repos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobController : ControllerBase
     {
         IJobRepoAsync repo;

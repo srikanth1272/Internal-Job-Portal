@@ -1,16 +1,21 @@
 ﻿using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IJPMvcApp.Controllers
 {
+    [Authorize]
     public class JobSkillController : Controller
     {
         static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
         // GET: JobSkillController
         public async Task<ActionResult> Index()
         {
-            List<JobSkill> jobskills = await client.GetFromJsonAsync<List<JobSkill>>(" ");
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            List<JobSkill> jobskills = await client.GetFromJsonAsync<List<JobSkill>>("");
             return View(jobskills);
         }
 
@@ -32,6 +37,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: JobSkillController/Create
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
             return View();
@@ -40,6 +46,7 @@ namespace IJPMvcApp.Controllers
         // POST: JobSkillController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Create(JobSkill jobSkill)
         {
             try
@@ -56,6 +63,7 @@ namespace IJPMvcApp.Controllers
 
         // GET: JobSkillController/Edit/5
         [Route("JobSkill/Edit/{jobId}/{skillId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string jobId, string skillId)
         {
             JobSkill jobskill = await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
@@ -66,6 +74,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("JobSkill/Edit/{jobId}/{skillId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string jobId,string skillId, JobSkill jobSkill)
         {
             try
@@ -80,6 +89,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: JobSkillController/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string jobId, string skillId)
         {
             JobSkill jobskill = await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
@@ -89,6 +99,7 @@ namespace IJPMvcApp.Controllers
         // POST: JobSkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string jobId, string skillId, IFormCollection collection)
         {
             try
