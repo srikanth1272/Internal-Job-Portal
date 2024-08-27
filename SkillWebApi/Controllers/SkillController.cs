@@ -8,7 +8,6 @@ namespace SkillWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class SkillController : ControllerBase
     {
         ISkillRepoAsync repo;

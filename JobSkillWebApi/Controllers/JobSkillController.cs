@@ -7,7 +7,6 @@ namespace JobSkillWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class JobSkillController : ControllerBase
     {
         IJobSkillRepoAsync jobSkillRepoAsync;
