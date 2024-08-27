@@ -5,13 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IJPMvcApp.Controllers
 {
-    
+    [Authorize]
     public class EmployeeSkillController : Controller
     {
         // GET: EmployeeSkillController
         static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
         public async Task<ActionResult> Index()
         {
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<EmployeeSkill> employeeSkills = await client.GetFromJsonAsync<List<EmployeeSkill>>("");
             return View(employeeSkills);
         }
@@ -56,6 +59,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: EmployeeSkillController/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string empId, string skillId)
         {
             EmployeeSkill employeeSkill = await client.GetFromJsonAsync<EmployeeSkill>("" + empId + "/" + skillId);
@@ -65,6 +69,7 @@ namespace IJPMvcApp.Controllers
         // POST: EmployeeSkillController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string empId, string skillId, EmployeeSkill employeeSkill)
         {
             try
@@ -78,6 +83,7 @@ namespace IJPMvcApp.Controllers
             }
         }
         [Route("EmployeeSkill/Delete/{empId}/{skillId}")]
+        [Authorize(Roles = "Admin")]
         // GET: EmployeeSkillController/Delete/5
         public async Task<ActionResult> Delete(string empId, string skillId)
         {
@@ -88,6 +94,7 @@ namespace IJPMvcApp.Controllers
         // POST: EmployeeSkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         [Route("EmployeeSkill/Delete/{empId}/{skillId}")]
         public async Task<ActionResult> Delete(string empId, string skillId, EmployeeSkill employeeSkill)
         {

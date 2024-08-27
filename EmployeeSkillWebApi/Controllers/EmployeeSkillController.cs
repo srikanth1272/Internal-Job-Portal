@@ -1,5 +1,6 @@
 ﻿using EmployeeSkillLibrary.Models;
 using EmployeeSkillLibrary.Repo;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace EmployeeSkillWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EmployeeSkillController : ControllerBase
     {
         IEmployeeSkillRepoAsync employeeSkillRepo;

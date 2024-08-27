@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using JobLibrary;
 using JobLibrary.Models;
 using JobLibrary.Repos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobController : ControllerBase
     {
         IJobRepoAsync repo;
@@ -43,7 +45,7 @@ namespace JobWebApi.Controllers
         {
             try
             {
-                await repo.AddJobDetailsAsync(job);
+               
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
                 await client.PostAsJsonAsync("Job/", new { JobId = job.JobId});
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
@@ -51,7 +53,7 @@ namespace JobWebApi.Controllers
                 HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
                 await client3.PostAsJsonAsync("Job/", new { JobId = job.JobId });
 
-                
+                await repo.AddJobDetailsAsync(job);
                 return Created($"api/Job/{job.JobId}", job);
             }
             catch (JobException ex)
@@ -78,8 +80,22 @@ namespace JobWebApi.Controllers
         {
             try
             {
-                await repo.RemoveJobDetailsAsync(jobId);
-                return Ok();
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
+                var response = await client.DeleteAsync("Job/" +jobId);
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                var response1 = await client2.DeleteAsync("Job/" + jobId);
+                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
+                var response2 = await client3.DeleteAsync("Job/" + jobId);
+                if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode && response2.IsSuccessStatusCode )
+                {
+                    await repo.RemoveJobDetailsAsync(jobId);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Cannot delete the job");
+                }
+               
             }
             catch(JobException ex) 
             {

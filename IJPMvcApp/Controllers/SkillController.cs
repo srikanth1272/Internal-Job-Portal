@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Authorization;
 namespace IJPMvcApp.Controllers
 {
+    [Authorize]
     public class SkillController : Controller
     {
         // GET: SkillController
@@ -10,6 +12,9 @@ namespace IJPMvcApp.Controllers
 
         public async Task<ActionResult> Index()
         {
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Skill> skills = await client.GetFromJsonAsync<List<Skill>>("");
             return View(skills);
         }
@@ -22,6 +27,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: SkillController/Create
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
             return View();
@@ -30,6 +36,7 @@ namespace IJPMvcApp.Controllers
         // POST: SkillController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async  Task<ActionResult> Create(Skill skill)
         {
             try
@@ -45,6 +52,7 @@ namespace IJPMvcApp.Controllers
 
         // GET: SkillController/Edit/5
         [Route("Skill/Edit/{skillId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string skillId)
         {
             Skill skill = await client.GetFromJsonAsync<Skill>("" + skillId);
@@ -55,7 +63,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Skill/Edit/{skillId}")]
-
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string skillId, Skill skill)
         {
             try
@@ -70,7 +78,8 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: SkillController/Delete/5
-        [Route("Skill/Delete/skillId")]
+        [Route("Skill/Delete/{skillId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string skillId)
         {
            Skill skill=await client.GetFromJsonAsync<Skill>(""+skillId);
@@ -80,7 +89,8 @@ namespace IJPMvcApp.Controllers
         // POST: SkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Skill/Delete/skillId")]
+        [Route("Skill/Delete/{skillId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
         {
             try

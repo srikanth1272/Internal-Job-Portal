@@ -13,8 +13,17 @@ namespace IJPMvcApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                string userName = User.Identity.Name;
+                string role = User.Claims.ToArray()[4].Value;
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+                HttpContext.Session.SetString("token", token);
+            }
             return View();
         }
 

@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using JobSkillLibrary.Models;
 using JobSkillLibrary.Repos;
+using Microsoft.AspNetCore.Authorization;
 namespace JobSkillWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobSkillController : ControllerBase
     {
         IJobSkillRepoAsync jobSkillRepoAsync;
@@ -138,7 +140,7 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("{skillId}")]
+        [HttpDelete("Skill/{skillId}")]
         public async Task<ActionResult> DeleteSkill( string skillId)
         {
             try
