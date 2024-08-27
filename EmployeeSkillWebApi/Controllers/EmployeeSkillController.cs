@@ -129,7 +129,7 @@ namespace EmployeeSkillWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
-        [HttpDelete("ByEmployee/{empId}")]
+        [HttpDelete("Employee/{empId}")]
         public async Task<ActionResult> DeleteEmployee(string empId)
         {
             try
