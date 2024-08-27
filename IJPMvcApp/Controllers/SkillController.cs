@@ -70,7 +70,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: SkillController/Delete/5
-        [Route("Skill/Delete/{skillId}")]
+        [Route("Skill/Delete/skillId")]
         public async Task<ActionResult> Delete(string skillId)
         {
            Skill skill=await client.GetFromJsonAsync<Skill>(""+skillId);
@@ -80,7 +80,7 @@ namespace IJPMvcApp.Controllers
         // POST: SkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Skill/Delete/{skillId}")]
+        [Route("Skill/Delete/skillId")]
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
         {
             try
