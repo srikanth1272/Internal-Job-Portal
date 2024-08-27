@@ -95,8 +95,17 @@ namespace JobPostWebApi.Controllers
         {
             try
             {
-                await repo.RemoveJobPostAsync(postId);
-                return Ok();
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                var response =  await client.DeleteAsync("JobPost/" + postId);
+                if (response.IsSuccessStatusCode)
+                {
+                    await repo.RemoveJobPostAsync(postId);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Cannot delete the job");
+                }
             }
             catch (JobPostException ex)
             {
@@ -108,6 +117,7 @@ namespace JobPostWebApi.Controllers
         {
             try
             {
+               
                 await repo.RemoveJobAsync(jobId);
                 return Ok();
             }

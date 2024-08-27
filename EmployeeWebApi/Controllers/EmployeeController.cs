@@ -55,10 +55,10 @@ namespace EmployeeWebApi.Controllers
             try
             {
                 await employeeRepo.AddEmployeeDetailsAsync(employee);
-                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
-                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
+               // HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+               // await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
-                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
+                await client1.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
 
                 return Created($"api/Employee/{employee.EmpId}", employee);
             }
@@ -94,12 +94,23 @@ namespace EmployeeWebApi.Controllers
             }
         }
         [HttpDelete("{empId}")]
-        public async Task<ActionResult> Delete(string empId)
+        public async Task<ActionResult> Delete(string empId, Employee employee)
         {
             try
             {
-                await employeeRepo.RemoveEmployeeDetailsAsync(empId);
-                return Ok();
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                var response = await client.DeleteAsync("Employee/" +empId);
+                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                var response1 = await client1.DeleteAsync("Employee/" + empId);
+                if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode)
+                {
+                    await employeeRepo.RemoveEmployeeDetailsAsync(empId);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Cannot delete the Employee");
+                }
             }
             catch (EmployeeException ex)
             {

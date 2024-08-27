@@ -47,10 +47,13 @@ namespace JobWebApi.Controllers
             {
                 await repo.AddJobDetailsAsync(job);
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
-                await client.PostAsJsonAsync("Job", new { JobId = job.JobId});
+                await client.PostAsJsonAsync("Job/", new { JobId = job.JobId});
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
-                await client2.PostAsJsonAsync("Job", new { JobId = job.JobId });
+                await client2.PostAsJsonAsync("Job/", new { JobId = job.JobId });
+                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
+                await client3.PostAsJsonAsync("Job/", new { JobId = job.JobId });
 
+                
                 return Created($"api/Job/{job.JobId}", job);
             }
             catch (JobException ex)
@@ -77,8 +80,22 @@ namespace JobWebApi.Controllers
         {
             try
             {
-                await repo.RemoveJobDetailsAsync(jobId);
-                return Ok();
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
+                var response = await client.DeleteAsync("Job/" +jobId);
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                var response1 = await client2.DeleteAsync("Job/" + jobId);
+                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
+                var response2 = await client3.DeleteAsync("Job/" + jobId);
+                if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode && response2.IsSuccessStatusCode )
+                {
+                    await repo.RemoveJobDetailsAsync(jobId);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Cannot delete the job");
+                }
+               
             }
             catch(JobException ex) 
             {

@@ -1,20 +1,31 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace IJPMvcApp.Controllers
 {
     public class EmployeeController : Controller
     {
         // GET: EmployeeController
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
         public async Task<ActionResult> Index()
         {
-            return View();
+            List<Employee> employees = await client.GetFromJsonAsync<List<Employee>>("");
+            return View(employees);
         }
 
         // GET: EmployeeController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(string empId)
         {
-            return View();
+            Employee employee = await client.GetFromJsonAsync<Employee>("ByempId/" + empId); 
+            return View(employee);
+        }
+
+        public async Task<ActionResult> ByjobId(string jobId)
+        {
+            List<Employee> employees = await client.GetFromJsonAsync<List<Employee>>("ByjobId/" + jobId);
+            return View(employees);
         }
 
         // GET: EmployeeController/Create
@@ -26,10 +37,11 @@ namespace IJPMvcApp.Controllers
         // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Employee employee)
         {
             try
             {
+                await client.PostAsJsonAsync("", employee);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -39,18 +51,20 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: EmployeeController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(string empId)
         {
-            return View();
+            Employee employee = await client.GetFromJsonAsync<Employee>("ByempId/" + empId);
+            return View(employee);
         }
 
         // POST: EmployeeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(string empId, Employee employee)
         {
             try
             {
+                await client.PutAsJsonAsync(empId, employee);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -60,18 +74,22 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: EmployeeController/Delete/5
-        public ActionResult Delete(int id)
+        [Route("Employee/Delete/{empId}")]
+        public async Task<ActionResult> Delete(string empId)
         {
-            return View();
+            Employee employee = await client.GetFromJsonAsync<Employee>("ByempId/" + empId);
+            return View(employee);
         }
 
         // POST: EmployeeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Route("Employee/Delete/{empId}")]
+        public async Task<ActionResult> Delete(string empId, Employee employee)
         {
             try
             {
+                await client.DeleteAsync(""+empId);
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<IJPMvcApp.Models.EmployeeSkill>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ByskillId";
 }
 
-<h1>Index</h1>
+<h1>ByskillId</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -35,13 +33,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SkillExperience)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { empId=item.EmpId , skillId=item.SkillId}) |
-                @Html.ActionLink("Details", "Details", new { empId=item.EmpId , skillId=item.SkillId }) |
-                @Html.ActionLink("Employees", "ByempId", new {empId=item.EmpId  }) |
-                @Html.ActionLink("Skills", "ByskillId", new { skillId=item.SkillId}) |
-                @Html.ActionLink("Delete", "Delete", new { empId=item.EmpId , skillId=item.SkillId})
             </td>
         </tr>
 }
