@@ -1,9 +1,11 @@
 ﻿using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IJPMvcApp.Controllers
 {
+    
     public class EmployeeSkillController : Controller
     {
         // GET: EmployeeSkillController
