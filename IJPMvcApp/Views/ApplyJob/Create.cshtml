@@ -3,6 +3,10 @@
 @{
     ViewData["Title"] = "Create";
 }
+@{
+    var status = await Helper.GetStatus();
+    var defaultSelectedStatus = status.FirstOrDefault();
+}
 
 <h1>Create</h1>
 
@@ -29,7 +33,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="ApplicationStatus" class="control-label"></label>
-                <input asp-for="ApplicationStatus" class="form-control" />
+                <select asp-for="ApplicationStatus" class="form-control">
+                        <option value="@defaultSelectedStatus.Value">@defaultSelectedStatus.Text</option>
+                </select>
                 <span asp-validation-for="ApplicationStatus" class="text-danger"></span>
             </div>
             <div class="form-group">
