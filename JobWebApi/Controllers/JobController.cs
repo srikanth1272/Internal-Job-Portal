@@ -9,7 +9,7 @@ namespace JobWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+  //  [Authorize]
     public class JobController : ControllerBase
     {
         IJobRepoAsync repo;
@@ -53,7 +53,7 @@ namespace JobWebApi.Controllers
                 HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
                 await client3.PostAsJsonAsync("Job/", new { JobId = job.JobId });
 
-                await repo.AddJobDetailsAsync(job);
+               await repo.AddJobDetailsAsync(job);
                 return Created($"api/Job/{job.JobId}", job);
             }
             catch (JobException ex)
