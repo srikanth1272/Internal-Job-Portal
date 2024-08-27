@@ -45,7 +45,7 @@ namespace JobWebApi.Controllers
         {
             try
             {
-                await repo.AddJobDetailsAsync(job);
+               
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
                 await client.PostAsJsonAsync("Job/", new { JobId = job.JobId});
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
@@ -53,7 +53,7 @@ namespace JobWebApi.Controllers
                 HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
                 await client3.PostAsJsonAsync("Job/", new { JobId = job.JobId });
 
-                
+                await repo.AddJobDetailsAsync(job);
                 return Created($"api/Job/{job.JobId}", job);
             }
             catch (JobException ex)

@@ -1,14 +1,19 @@
 ﻿using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IJPMvcApp.Controllers
 {
+    [Authorize]
     public class JobPostController : Controller
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
         public async Task<ActionResult> Index()
         {
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<JobPost> jobPosts = await client.GetFromJsonAsync<List<JobPost>>("");
             return View(jobPosts);
         }
@@ -23,6 +28,7 @@ namespace IJPMvcApp.Controllers
             List<JobPost> jobPosts = await client.GetFromJsonAsync<List<JobPost>>("ByJobId/"+jobId);
             return View(jobPosts);
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -30,6 +36,7 @@ namespace IJPMvcApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(JobPost jobPost)
         {
             try
@@ -44,6 +51,7 @@ namespace IJPMvcApp.Controllers
         }
 
         [Route("JobPost/Edit/{postId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int postId)
         {
             JobPost jobPost = await client.GetFromJsonAsync<JobPost>("" + postId);
@@ -53,6 +61,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("JobPost/Edit/{postId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int postId, JobPost jobPost)
         {
             try
@@ -67,6 +76,7 @@ namespace IJPMvcApp.Controllers
         }
 
         [Route("JobPost/Delete/{postId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int postId)
         {
             JobPost jobPost = await client.GetFromJsonAsync<JobPost>("" + postId);
@@ -77,6 +87,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("JobPost/Delete/{postId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int postId, JobPost jobPost)
         {
             try

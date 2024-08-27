@@ -1,15 +1,20 @@
 ﻿using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace IJPMvcApp.Controllers
 {
+    [Authorize]
     public class ApplyJobController : Controller
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
         public async Task<ActionResult> Index()
         {
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<ApplyJob> appliedJobs = await client.GetFromJsonAsync<List<ApplyJob>>("");
             return View(appliedJobs);
         }
@@ -50,6 +55,7 @@ namespace IJPMvcApp.Controllers
         }
 
         [Route("ApplyJob/Edit/{postId}/{empId}")]
+        [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Edit(int postId,string empId)
         {
             ApplyJob appliedJob = await client.GetFromJsonAsync<ApplyJob>($"{postId}/{empId}");
@@ -59,6 +65,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("ApplyJob/Edit/{postId}/{empId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int postId, string empId, ApplyJob appliedJob)
         {
             try
@@ -73,6 +80,7 @@ namespace IJPMvcApp.Controllers
         }
 
         [Route("ApplyJob/Delete/{postId}/{empId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int postId, string empId)
         {
             ApplyJob appliedJob = await client.GetFromJsonAsync<ApplyJob>($"{postId}/{empId}");
@@ -83,6 +91,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("ApplyJob/Delete/{postId}/{empId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int postId, string empId, ApplyJob appliedJob)
         {
             try

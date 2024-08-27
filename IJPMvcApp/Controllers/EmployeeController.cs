@@ -1,16 +1,21 @@
 ﻿using IJPMvcApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace IJPMvcApp.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
         // GET: EmployeeController
         static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
         public async Task<ActionResult> Index()
         {
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Employee> employees = await client.GetFromJsonAsync<List<Employee>>("");
             return View(employees);
         }
@@ -29,6 +34,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: EmployeeController/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -37,6 +43,7 @@ namespace IJPMvcApp.Controllers
         // POST: EmployeeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(Employee employee)
         {
             try
@@ -51,6 +58,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: EmployeeController/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string empId)
         {
             Employee employee = await client.GetFromJsonAsync<Employee>("ByempId/" + empId);
@@ -60,6 +68,7 @@ namespace IJPMvcApp.Controllers
         // POST: EmployeeController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string empId, Employee employee)
         {
             try
@@ -75,6 +84,7 @@ namespace IJPMvcApp.Controllers
 
         // GET: EmployeeController/Delete/5
         [Route("Employee/Delete/{empId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string empId)
         {
             Employee employee = await client.GetFromJsonAsync<Employee>("ByempId/" + empId);
@@ -85,6 +95,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Employee/Delete/{empId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string empId, Employee employee)
         {
             try
