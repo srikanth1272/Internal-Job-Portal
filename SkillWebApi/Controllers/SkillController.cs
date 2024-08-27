@@ -42,6 +42,10 @@ namespace SkillWebApi.Controllers
             try
             {
                 await repo.AddSkillDetailsAsync(skill);
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                await client.PostAsJsonAsync("Skill", new { SkillId = skill.SkillId });
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                await client2.PostAsJsonAsync("Skill", new { SkillId = skill.SkillId });
                 return Created($"api/Skill/{skill.SkillId}", skill);
             }
             catch (SkillException ex)
