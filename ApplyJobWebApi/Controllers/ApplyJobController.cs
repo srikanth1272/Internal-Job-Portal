@@ -1,5 +1,6 @@
 ﻿using ApplyJobLibrary.Models;
 using ApplyJobLibrary.Repos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace ApplyJobWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ApplyJobController : ControllerBase
     {
         IApplyJobRepoAsyn repo;

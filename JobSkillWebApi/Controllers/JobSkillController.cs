@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using JobSkillLibrary.Models;
 using JobSkillLibrary.Repos;
+using Microsoft.AspNetCore.Authorization;
 namespace JobSkillWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobSkillController : ControllerBase
     {
         IJobSkillRepoAsync jobSkillRepoAsync;
