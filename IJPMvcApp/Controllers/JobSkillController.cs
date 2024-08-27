@@ -90,6 +90,7 @@ namespace IJPMvcApp.Controllers
 
         // GET: JobSkillController/Delete/5
         [Authorize(Roles = "Admin")]
+        [Route("JobSkill/Delete/{jobId}/{skillId}")]
         public async Task<ActionResult> Delete(string jobId, string skillId)
         {
             JobSkill jobskill = await client.GetFromJsonAsync<JobSkill>("" + jobId + "/" + skillId);
@@ -100,6 +101,7 @@ namespace IJPMvcApp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
+        [Route("JobSkill/Delete/{jobId}/{skillId}")]
         public async Task<ActionResult> Delete(string jobId, string skillId, IFormCollection collection)
         {
             try
