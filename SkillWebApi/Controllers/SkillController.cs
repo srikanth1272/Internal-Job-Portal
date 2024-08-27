@@ -58,8 +58,13 @@ namespace SkillWebApi.Controllers
         {
             try
             {
+
                 await repo.UpdateSkillDetailsAsync(skillId, skill);
-                return Ok(skill);
+                    return Ok(skill);
+                
+
+
+
             }
             catch (SkillException ex)
             {
@@ -71,9 +76,23 @@ namespace SkillWebApi.Controllers
         {
             try
             {
-                await repo.RemoveSkillDetailsAsync(skillId);
-                return Ok();
+               
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                var response1 = await client2.DeleteAsync("Skill/" + skillId);
+                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                var response2 = await client3.DeleteAsync("Skill/" + skillId);
+                if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
+                {
+                    await repo.RemoveSkillDetailsAsync(skillId);
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest("Cannot delete the job");
+                }
+
             }
+
             catch (SkillException ex)
             {
                 return BadRequest(ex.Message);

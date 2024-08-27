@@ -138,7 +138,7 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpDelete("{skillId}")]
+        [HttpDelete("Skill/{skillId}")]
         public async Task<ActionResult> DeleteSkill( string skillId)
         {
             try

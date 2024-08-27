@@ -24,9 +24,15 @@
             </div>
             <div class="form-group">
                 <label asp-for="SkillLevel" class="control-label"></label>
-                <input asp-for="SkillLevel" class="form-control" />
+                <select asp-for="SkillLevel" class="form-control">
+                    <option value="">SkillLevel</option>
+                    <option value="B">B</option>
+                    <option value="I">I</option>
+                    <option value="A">A</option>
+                </select>
                 <span asp-validation-for="SkillLevel" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="SkillCategory" class="control-label"></label>
                 <input asp-for="SkillCategory" class="form-control" />
