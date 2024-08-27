@@ -41,15 +41,15 @@ public partial class ApplyJobDBContext : DbContext
                 .HasMaxLength(10)
                 .IsUnicode(false);
 
-            //entity.HasOne(d => d.Emp).WithMany(p => p.ApplyJobs)
-            //    .HasForeignKey(d => d.EmpId)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("FK__ApplyJob__EmpId__3B75D760");
+            entity.HasOne(d => d.Emp).WithMany(p => p.ApplyJobs)
+                .HasForeignKey(d => d.EmpId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ApplyJob__EmpId__3B75D760");
 
-            //entity.HasOne(d => d.Post).WithMany(p => p.ApplyJobs)
-            //    .HasForeignKey(d => d.PostId)
-            //    .OnDelete(DeleteBehavior.ClientSetNull)
-            //    .HasConstraintName("FK__ApplyJob__PostId__3A81B327");
+            entity.HasOne(d => d.Post).WithMany(p => p.ApplyJobs)
+                .HasForeignKey(d => d.PostId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__ApplyJob__PostId__3A81B327");
         });
 
         modelBuilder.Entity<Employee>(entity =>

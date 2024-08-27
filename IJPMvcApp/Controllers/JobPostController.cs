@@ -8,7 +8,7 @@ namespace IJPMvcApp.Controllers
     [Authorize]
     public class JobPostController : Controller
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");
@@ -41,6 +41,7 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
+ 
                 await client.PostAsJsonAsync("", jobPost);
                 return RedirectToAction(nameof(Index));
             }

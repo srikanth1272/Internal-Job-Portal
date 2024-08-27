@@ -1,6 +1,7 @@
 using IJPMvcApp.Data;
 using IJPMvcApp.Filters;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.DotNet.Scaffolding.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace IJPMvcApp
@@ -23,11 +24,12 @@ namespace IJPMvcApp
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();
+            builder.Logging.AddConsole();
             builder.Services.AddMvc(options =>
             {
                 options.Filters.Add<CustomExceptionFilter>();
             });
-
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -41,8 +43,10 @@ namespace IJPMvcApp
             }
             app.UseStaticFiles();
             app.UseSession();
+            
             app.UseRouting();
-
+            app.UseCors("AllowAll");
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
