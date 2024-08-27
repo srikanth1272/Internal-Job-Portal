@@ -27,7 +27,7 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: SkillController/Create
-        [Authorize(Roles = "Admin")]
+       [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create()
         {
             return View();
@@ -78,8 +78,10 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: SkillController/Delete/5
+        
+         [Authorize(Roles = "Admin")]
         [Route("Skill/Delete/{skillId}")]
-        [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult> Delete(string skillId)
         {
            Skill skill=await client.GetFromJsonAsync<Skill>(""+skillId);
@@ -89,8 +91,9 @@ namespace IJPMvcApp.Controllers
         // POST: SkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+         [Authorize(Roles = "Admin")]
         [Route("Skill/Delete/{skillId}")]
-        [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
         {
             try

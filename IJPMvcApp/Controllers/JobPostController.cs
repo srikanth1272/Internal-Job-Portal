@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IJPMvcApp.Controllers
 {
-    [Authorize]
+  [Authorize]
     public class JobPostController : Controller
     {
         HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
