@@ -8,7 +8,7 @@ namespace IJPMvcApp.Controllers
     [Authorize]
     public class JobSkillController : Controller
     {
-        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
         // GET: JobSkillController
         public async Task<ActionResult> Index()
         {

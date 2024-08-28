@@ -9,7 +9,7 @@ namespace IJPMvcApp.Controllers
     public class JobController : Controller
     {
         // GET: JobController
-        static HttpClient client =new HttpClient() { BaseAddress = new Uri("http://localhost:5152/api/Job/") };
+        static HttpClient client =new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSvc/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");

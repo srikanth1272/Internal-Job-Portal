@@ -75,7 +75,7 @@
           "Port": 5086
         }
       ],
-      "UpstreamPathTemplate": "/ApplyJob/{something}"
+      "UpstreamPathTemplate": "/ApplyJobSvc/{something}"
     },
     {
       "DownstreamPathTemplate": "/api/Auth/{something}",

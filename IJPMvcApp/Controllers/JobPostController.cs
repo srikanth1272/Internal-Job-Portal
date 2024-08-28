@@ -8,7 +8,7 @@ namespace IJPMvcApp.Controllers
   [Authorize]
     public class JobPostController : Controller
     {
-        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");

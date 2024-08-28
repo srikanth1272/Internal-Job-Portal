@@ -8,7 +8,7 @@ namespace IJPMvcApp.Controllers
     public class SkillController : Controller
     {
         // GET: SkillController
-        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5055/api/Skill/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/SkillSvc/") };
 
         public async Task<ActionResult> Index()
         {

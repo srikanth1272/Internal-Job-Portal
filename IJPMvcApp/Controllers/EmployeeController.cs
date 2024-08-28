@@ -10,7 +10,7 @@ namespace IJPMvcApp.Controllers
     public class EmployeeController : Controller
     {
         // GET: EmployeeController
-        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSvc/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");
