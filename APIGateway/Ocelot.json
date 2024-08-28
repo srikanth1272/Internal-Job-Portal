@@ -9,7 +9,7 @@
           "Port": 5152
         }
       ],
-      "UpstreamPathTemplate": "/JobSvc/{something}"
+      "UpstreamPathTemplate": "/jobSvc/{something}"
     },
     {
       "DownstreamPathTemplate": "/api/Skill/{something}",

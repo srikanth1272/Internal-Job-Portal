@@ -47,14 +47,14 @@ namespace SkillWebApi.Controllers
                 string userName = "Harry";
                 string role = "admin";
                 string secretKey = "My Name is James, James Bond 007";
-                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
                 string token = await client1.GetStringAsync($"{userName}/{role}/{secretKey}");
 
-                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client.PostAsJsonAsync("Skill/", new { SkillId = skill.SkillId });
                
-                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
                 client2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client2.PostAsJsonAsync("Skill/", new { SkillId = skill.SkillId });
                 return Created($"api/Skill/{skill.SkillId}", skill);
@@ -91,15 +91,15 @@ namespace SkillWebApi.Controllers
                 string userName = "Harry";
                 string role = "admin";
                 string secretKey = "My Name is James, James Bond 007";
-                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
                 string token = await client1.GetStringAsync($"{userName}/{role}/{secretKey}");
 
 
-                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
                 client2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response1 = await client2.DeleteAsync("Skill/" + skillId);
 
-                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
                 client3.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response2 = await client3.DeleteAsync("Skill/" + skillId);
                 if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
@@ -111,13 +111,13 @@ namespace SkillWebApi.Controllers
                 {
                     if (response1.IsSuccessStatusCode)
                     {
-                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
                         client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client4.PostAsJsonAsync("Skill/", new { SkillId = skillId });
                     }
                     if (response2.IsSuccessStatusCode)
                     {
-                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
                         client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client5.PostAsJsonAsync("Skill/", new { SkillId = skillId });
 
