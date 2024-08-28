@@ -7,7 +7,6 @@ html {
     font-size: 16px;
   }
 }
-
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
@@ -24,6 +23,7 @@ body {
 body {
     margin: 0;
     padding: 0;
+    width:auto;
     background-image: url('/images/imagew2.jfif'); /* Path to your background image */
     background-size: cover; /* Scale the image to cover the whole page */
     background-position: center; /* Center the image */
@@ -44,7 +44,9 @@ body {
     border: 2px solid red; /* Ensure the border appears */
     background: rgba(0, 0, 0, 0.5); /* Background for visibility */
 }
-
+.text-center{
+    bottom:100px;
+}
 /* Ensure the text only appears on the home page */
 .custom-text {
     position: absolute;
@@ -71,6 +73,88 @@ body {
         color: #e4b0b0; /* Distinctive color for testing */
     }
 
+/*Carsds*/
+/* styles.css */
+.sec{
+    background:none;
+}
 
+.container1 {
+    width: 80%;
+    margin: 0 auto;
+    background-color: none;
+}
 
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    
+}
 
+.card {
+    border: 1px solid #ddd;
+    padding: 20px;
+    top: 180%;
+    border-radius: 10px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+        transform: scale(1.05);
+    }
+
+.card-logo {
+    width: 60px; /* Adjust the size as needed */
+    height: auto;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 15px;
+
+    
+}
+
+.card h3 {
+    margin: 0 0 10px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #555;
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+}
+
+.card a:hover {
+        text-decoration: underline;
+    }
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #692222;
+    background: linear-gradient(135deg, #d70325f5, #0e0b00);
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn:hover {
+        background-color: #0056b3;
+    }
+.navbar {
+    background-color: black; /* Example: Change to your desired color */
+}
