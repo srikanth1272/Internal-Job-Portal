@@ -59,9 +59,10 @@ namespace JobPostWebApi.Controllers
                 string secretKey = "My Name is James, James Bond 007";
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
                 string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
+
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",token);
-               // HttpContext.Session.SetString("token", token);
                 await client.PostAsJsonAsync("JobPost/",new {PostId = jobPost.PostId});
                 return Created($"api/JobPost/{jobPost.PostId}", jobPost);
             }
@@ -103,13 +104,14 @@ namespace JobPostWebApi.Controllers
         {
             try
             {
-                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
                 string userName = "Harry";
                 string role = "admin";
                 string secretKey = "My Name is James, James Bond 007";
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
                 string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
-                //string token = HttpContext.Session.GetString("token");
+
+
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
                 client.DefaultRequestHeaders.Authorization = new
                 System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response =  await client.DeleteAsync("JobPost/" + postId);
