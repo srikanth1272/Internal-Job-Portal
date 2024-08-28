@@ -136,14 +136,14 @@ body {
         text-decoration: underline;
     }
 
-.btn {
+.btn1 {
     display: inline-block;
     padding: 10px 20px;
     margin-top: 15px;
     font-size: 16px;
     font-weight: bold;
     color: #692222;
-    background: linear-gradient(135deg, #d70325f5, #0e0b00);
+    background: linear-gradient(135deg, #8f2b1442, #1181d3f5);
     border: none;
     border-radius: 5px;
     text-align: center;
@@ -152,7 +152,7 @@ body {
     transition: background-color 0.3s ease;
 }
 
-    .btn:hover {
+    .btn1:hover {
         background-color: #0056b3;
     }
 .navbar {
