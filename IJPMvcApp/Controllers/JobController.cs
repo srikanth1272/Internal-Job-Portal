@@ -42,16 +42,15 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async  Task<ActionResult> Create(Job job)
         {
-            try
-            {
-
-                await client.PostAsJsonAsync<Job>("",job);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
+            if (!ModelState.IsValid)
             {
                 return View();
             }
+
+            await client.PostAsJsonAsync<Job>("",job);
+            return RedirectToAction(nameof(Index));
+            
+            
         }
 
         // GET: JobController/Edit/5

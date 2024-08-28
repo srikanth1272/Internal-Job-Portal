@@ -19,6 +19,8 @@ namespace IJPMvcApp.Models
         [RegularExpression(@"\d{10}", ErrorMessage = "phone number must be 10 digits")]
         public string PhoneNo { get; set; } = null!;
         [Range(0,90,ErrorMessage ="Experience must be in between 0 to 90")]
+        [Display(Name = "Total Experience")]
+
         public int TotalExperience { get; set; }
         [RegularExpression(@"\w{6}", ErrorMessage = "Job Id must be 6 characters")]
         [Display(Name = "Job Id")]
