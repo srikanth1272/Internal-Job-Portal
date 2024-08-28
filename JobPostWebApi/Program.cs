@@ -38,7 +38,7 @@ namespace FlightWebApi
                 };
             });
 
-            builder.Services.AddSession();
+            //builder.Services.AddSession();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -48,7 +48,7 @@ namespace FlightWebApi
                 app.UseSwaggerUI();
             }
 
-            app.UseSession();
+            //app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 
