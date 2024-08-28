@@ -39,7 +39,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="JobId" class="control-label"></label>
-                <input asp-for="JobId" class="form-control" />
+                <select asp-for="JobId" class="form-control">
+                    @foreach (SelectListItem jobs in await Helper.GetJobs())
+                    {
+                        <option value="@jobs.Value">@jobs.Text</option>
+                    }
+                </select>
                 <span asp-validation-for="JobId" class="text-danger"></span>
             </div>
             <div class="form-group">
