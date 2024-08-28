@@ -27,6 +27,12 @@
                     <td>@item.TotalExperience</td>
                     <td>@item.JobId</td>
                 </tr>
+            <tr>
+                    @Html.ActionLink("Edit", "Edit", new { empId = item.EmpId }) |
+                    @Html.ActionLink("Details", "Details", new { empId = item.EmpId }) |
+                    @Html.ActionLink("EmployeesByjobId", "ByjobId", new { jobId = item.JobId }) |
+                    @Html.ActionLink("Delete", "Delete", new { empId = item.EmpId })
+            </tr>
             }
         </tbody>
     </table>
