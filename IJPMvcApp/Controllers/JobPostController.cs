@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace IJPMvcApp.Controllers
 {
-    [Authorize]
+  [Authorize]
     public class JobPostController : Controller
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");
@@ -29,7 +29,7 @@ namespace IJPMvcApp.Controllers
             return View(jobPosts);
         }
         [Authorize(Roles = "Admin")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             return View();
         }
@@ -41,8 +41,12 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
+                
+ 
                 await client.PostAsJsonAsync("", jobPost);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                    return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {

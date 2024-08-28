@@ -7,5 +7,5 @@ public partial class Employee
 {
     public string EmpId { get; set; } = null!;
 
-   // public virtual ICollection<ApplyJob>? ApplyJobs { get; set; } = new List<ApplyJob>();
+   public virtual ICollection<ApplyJob>? ApplyJobs { get; set; } = new List<ApplyJob>();
 }

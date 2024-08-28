@@ -9,7 +9,7 @@ namespace IJPMvcApp.Controllers
     [Authorize]
     public class ApplyJobController : Controller
     {
-        HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+        static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");
@@ -36,7 +36,10 @@ namespace IJPMvcApp.Controllers
         }
         public ActionResult Create()
         {
-            return View();
+            ApplyJob appliedJob = new ApplyJob();
+            appliedJob.ApplicationStatus = "Reviewing";
+            appliedJob.AppliedDate = DateOnly.FromDateTime(DateTime.Now);
+            return View(appliedJob);
         }
 
         [HttpPost]
@@ -45,6 +48,7 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
+              
                 await client.PostAsJsonAsync("", appliedJob);
                 return RedirectToAction(nameof(Index));
             }

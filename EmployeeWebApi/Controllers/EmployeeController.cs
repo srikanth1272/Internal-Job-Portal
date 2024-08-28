@@ -53,10 +53,17 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
                 await employeeRepo.AddEmployeeDetailsAsync(employee);
-                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
-                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
+               // HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+               // await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client1.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
 
                 return Created($"api/Employee/{employee.EmpId}", employee);
@@ -97,9 +104,18 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
+
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await client.DeleteAsync("Employee/" +empId);
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response1 = await client1.DeleteAsync("Employee/" + empId);
                 if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode)
                 {
@@ -108,6 +124,19 @@ namespace EmployeeWebApi.Controllers
                 }
                 else
                 {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                        client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        await client4.PostAsJsonAsync("Employee/", new { EmpId = empId });
+
+                    }
+                    if (response1.IsSuccessStatusCode)
+                    {
+                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                        client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        await client5.PostAsJsonAsync("Employee/", new { EmpId = empId });
+                    }
                     return BadRequest("Cannot delete the Employee");
                 }
             }
