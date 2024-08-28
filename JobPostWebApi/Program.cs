@@ -48,7 +48,7 @@ namespace FlightWebApi
                 app.UseSwaggerUI();
             }
 
-            //app.UseSession();
+           // app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

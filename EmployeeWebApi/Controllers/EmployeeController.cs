@@ -54,10 +54,18 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
                 await employeeRepo.AddEmployeeDetailsAsync(employee);
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client1.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
 
                 return Created($"api/Employee/{employee.EmpId}", employee);
@@ -98,9 +106,18 @@ namespace EmployeeWebApi.Controllers
         {
             try
             {
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
+
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response = await client.DeleteAsync("Employee/" +empId);
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response1 = await client1.DeleteAsync("Employee/" + empId);
                 if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode)
                 {
