@@ -8,7 +8,7 @@ namespace EmployeeWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class EmployeeController : ControllerBase
     {
         IEmployeeRepoAsync employeeRepo;
@@ -61,9 +61,8 @@ namespace EmployeeWebApi.Controllers
                 string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
 
                 await employeeRepo.AddEmployeeDetailsAsync(employee);
-                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
+               // HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+               // await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
                 client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client1.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });

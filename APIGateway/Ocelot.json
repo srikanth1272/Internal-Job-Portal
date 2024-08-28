@@ -1,0 +1,95 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Job/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5152
+        }
+      ],
+      "UpstreamPathTemplate": "/JobSvc/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Skill/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "UpstreamPathTemplate": "/SkillSvc/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/JobSkill/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5210
+        }
+      ],
+      "UpstreamPathTemplate": "/JobSkillSvc/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Employee/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5005
+        }
+      ],
+      "UpstreamPathTemplate": "/EmployeeSvc/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/EmployeeSkill/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5064
+        }
+      ],
+      "UpstreamPathTemplate": "/EmployeeSkillSvc/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/JobPost/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5117
+        }
+      ],
+      "UpstreamPathTemplate": "/JobPostSvc/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/ApplyJob/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5086
+        }
+      ],
+      "UpstreamPathTemplate": "/ApplyJob/{something}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Auth/{something}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5059
+        }
+      ],
+      "UpstreamPathTemplate": "/AuthSvc/{something}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5003"
+  }
+}

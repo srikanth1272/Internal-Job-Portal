@@ -63,7 +63,7 @@ namespace JobWebApi.Controllers
                 client3.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client3.PostAsJsonAsync("Job/", new { JobId = job.JobId });
 
-                
+                await repo.AddJobDetailsAsync(job);
                 return Created($"api/Job/{job.JobId}", job);
             }
             catch (JobException ex)
