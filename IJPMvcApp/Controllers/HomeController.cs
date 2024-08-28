@@ -20,7 +20,7 @@ namespace IJPMvcApp.Controllers
                 string userName = User.Identity.Name;
                 string role = User.Claims.ToArray()[4].Value;
                 string secretKey = "My Name is James, James Bond 007";
-                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
                 string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
                 HttpContext.Session.SetString("token", token);
             }
