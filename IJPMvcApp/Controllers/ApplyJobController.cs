@@ -48,6 +48,7 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
+              
                 await client.PostAsJsonAsync("", appliedJob);
                 return RedirectToAction(nameof(Index));
             }

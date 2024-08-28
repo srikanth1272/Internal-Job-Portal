@@ -29,7 +29,7 @@ namespace IJPMvcApp.Controllers
             return View(jobPosts);
         }
         [Authorize(Roles = "Admin")]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
             return View();
         }
@@ -41,9 +41,12 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
+                
  
                 await client.PostAsJsonAsync("", jobPost);
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                    return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {
