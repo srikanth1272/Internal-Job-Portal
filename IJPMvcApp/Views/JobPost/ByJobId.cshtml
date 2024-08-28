@@ -6,10 +6,8 @@
 
 <h1>ByJobId</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="container">
+    <table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -48,15 +46,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Vacancies)
             </td>
-            <td>
+           @*  <td>
                     @Html.ActionLink("Edit", "Edit", new { postId = item.PostId }) |
                     @Html.ActionLink("Details", "Details", new { postId = item.PostId }) |
                     @Html.ActionLink("Delete", "Delete", new { postId = item.PostId })
-            </td>
+            </td> *@
         </tr>
 }
     </tbody>
 </table>
+</div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
 </div>

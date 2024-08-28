@@ -43,6 +43,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { postId = Model.PostId }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new { postId = Model.PostId }, new { @class = "btn - btn-primary"}) |
+    <a asp-action="Index" class=" btn btn-dark">Back to List</a>
 </div>
