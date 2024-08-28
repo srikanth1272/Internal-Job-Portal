@@ -9,6 +9,7 @@ namespace JobWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JobController : ControllerBase
     {
         IJobRepoAsync repo;
