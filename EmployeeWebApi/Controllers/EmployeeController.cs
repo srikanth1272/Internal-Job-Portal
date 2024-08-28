@@ -109,6 +109,9 @@ namespace EmployeeWebApi.Controllers
                 }
                 else
                 {
+                    if (response.IsSuccessStatusCode)
+                    {
+                    }
                     return BadRequest("Cannot delete the Employee");
                 }
             }

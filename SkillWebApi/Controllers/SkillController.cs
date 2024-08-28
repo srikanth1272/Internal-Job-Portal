@@ -109,6 +109,19 @@ namespace SkillWebApi.Controllers
                 }
                 else
                 {
+                    if (response1.IsSuccessStatusCode)
+                    {
+                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                        client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        await client4.PostAsJsonAsync("Skill/", new { SkillId = skillId });
+                    }
+                    if (response2.IsSuccessStatusCode)
+                    {
+                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                        client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        await client5.PostAsJsonAsync("Skill/", new { SkillId = skillId });
+
+                    }
                     return BadRequest("Cannot delete the job");
                 }
 
