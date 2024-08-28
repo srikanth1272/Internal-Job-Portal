@@ -96,7 +96,7 @@ namespace IJPMvcApp.Controllers
         [ValidateAntiForgeryToken]
         [Route("Employee/Delete/{empId}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(string empId, Employee employee)
+        public async Task<ActionResult> Delete(string empId, IFormCollection collection)
         {
             try
             {

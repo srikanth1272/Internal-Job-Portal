@@ -8,7 +8,6 @@ namespace EmployeeWebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   // [Authorize]
     public class EmployeeController : ControllerBase
     {
         IEmployeeRepoAsync employeeRepo;
@@ -55,8 +54,8 @@ namespace EmployeeWebApi.Controllers
             try
             {
                 await employeeRepo.AddEmployeeDetailsAsync(employee);
-               // HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
-               // await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5086/api/ApplyJob/") };
+                await client.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
                 HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
                 await client1.PostAsJsonAsync("Employee/", new { EmpId = employee.EmpId });
 
@@ -94,7 +93,7 @@ namespace EmployeeWebApi.Controllers
             }
         }
         [HttpDelete("{empId}")]
-        public async Task<ActionResult> Delete(string empId, Employee employee)
+        public async Task<ActionResult> Delete(string empId)
         {
             try
             {

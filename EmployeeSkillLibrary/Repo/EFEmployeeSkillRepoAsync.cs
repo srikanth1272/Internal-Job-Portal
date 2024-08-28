@@ -110,7 +110,7 @@ namespace EmployeeSkillLibrary.Repo
                 ctx.EmployeeSkills.Remove(employeeSkill);
                 await ctx.SaveChangesAsync();
             }
-            catch (Exception ex)
+            catch (Exception ex)    
             {
                 throw new EmployeeSkillException(ex.Message);
             }
@@ -135,6 +135,8 @@ namespace EmployeeSkillLibrary.Repo
             try
             {
                 EmployeeSkill employeeSkill1 = await GetEmployeeSkillByEmpIdandSkillIdAsync(empId, skillId);
+                employeeSkill1.EmpId = employeeSkill.EmpId;
+                employeeSkill1.SkillId=employeeSkill.SkillId;
                 employeeSkill1.SkillExperience = employeeSkill.SkillExperience;
                 await ctx.SaveChangesAsync();
             }
