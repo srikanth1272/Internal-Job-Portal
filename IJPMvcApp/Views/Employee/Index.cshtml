@@ -3,46 +3,12 @@
 @{
     ViewData["Title"] = "Index";
 }
-<div class="container">
-    <h2 class="text-center">Index</h2>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>EmppId</th>
-                <th>EmpName</th>
-                <th>EmailId</th>
-                <th>PhoneNo</th>
-                <th>TotalExperience</th>
-                <th>JobId</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.EmpId</td>
-                    <td>@item.EmpName</td>
-                    <td>@item.EmailId</td>
-                    <td>@item.PhoneNo</td>
-                    <td>@item.TotalExperience</td>
-                    <td>@item.JobId</td>
-                </tr>
-            <tr>
-                    @Html.ActionLink("Edit", "Edit", new { empId = item.EmpId }) |
-                    @Html.ActionLink("Details", "Details", new { empId = item.EmpId }) |
-                    @Html.ActionLink("EmployeesByjobId", "ByjobId", new { jobId = item.JobId }) |
-                    @Html.ActionLink("Delete", "Delete", new { empId = item.EmpId })
-            </tr>
-            }
-        </tbody>
-    </table>
-</div>
-<h1>Index</h1>
-
+<h2 class="text-center">Index</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
+<div class="container">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -97,3 +63,5 @@
 }
     </tbody>
 </table>
+</div>
+
