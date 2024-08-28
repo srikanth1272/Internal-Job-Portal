@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
 namespace IJPMvcApp.Controllers
 {
-    [Authorize]
+   [Authorize]
     public class JobController : Controller
     {
         // GET: JobController
@@ -82,8 +82,9 @@ namespace IJPMvcApp.Controllers
         }
 
         // GET: JobController/Delete/5
-        [Route("Job/Delete/{jobId}")]
         [Authorize(Roles = "Admin")]
+        [Route("Job/Delete/{jobId}")]
+
         public async Task<ActionResult> Delete(string jobId)
         {
             Job job = await client.GetFromJsonAsync<Job>("" + jobId);
@@ -93,8 +94,10 @@ namespace IJPMvcApp.Controllers
         // POST: JobController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
+         [Authorize(Roles = "Admin")]
         [Route("Job/Delete/{jobId}")]
-        [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult> Delete(string jobId, IFormCollection collection)
         {
             try

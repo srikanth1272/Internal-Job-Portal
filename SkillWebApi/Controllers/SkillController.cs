@@ -44,10 +44,19 @@ namespace SkillWebApi.Controllers
             try
             {
                 await repo.AddSkillDetailsAsync(skill);
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client1.GetStringAsync($"{userName}/{role}/{secretKey}");
+
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
-                await client.PostAsJsonAsync("Skill", new { SkillId = skill.SkillId });
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                await client.PostAsJsonAsync("Skill/", new { SkillId = skill.SkillId });
+               
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
-                await client2.PostAsJsonAsync("Skill", new { SkillId = skill.SkillId });
+                client2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                await client2.PostAsJsonAsync("Skill/", new { SkillId = skill.SkillId });
                 return Created($"api/Skill/{skill.SkillId}", skill);
             }
             catch (SkillException ex)
@@ -78,10 +87,20 @@ namespace SkillWebApi.Controllers
         {
             try
             {
-               
+                
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+                string token = await client1.GetStringAsync($"{userName}/{role}/{secretKey}");
+
+
                 HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                client2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response1 = await client2.DeleteAsync("Skill/" + skillId);
+
                 HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                client3.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 var response2 = await client3.DeleteAsync("Skill/" + skillId);
                 if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
                 {
@@ -90,6 +109,19 @@ namespace SkillWebApi.Controllers
                 }
                 else
                 {
+                    if (response1.IsSuccessStatusCode)
+                    {
+                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5064/api/EmployeeSkill/") };
+                        client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        await client4.PostAsJsonAsync("Skill/", new { SkillId = skillId });
+                    }
+                    if (response2.IsSuccessStatusCode)
+                    {
+                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5210/api/JobSkill/") };
+                        client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                        await client5.PostAsJsonAsync("Skill/", new { SkillId = skillId });
+
+                    }
                     return BadRequest("Cannot delete the job");
                 }
 
