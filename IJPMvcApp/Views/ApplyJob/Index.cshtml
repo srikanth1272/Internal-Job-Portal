@@ -7,7 +7,7 @@
 <h1 style="text-align: center; font-weight:bold">Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Apply Job</a>
 
 </p>
 <div class="container">
@@ -45,11 +45,11 @@
                 @Html.DisplayFor(modelItem => item.ApplicationStatus)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { postId = item.PostId, empId = item.EmpId }) |
-                @Html.ActionLink("Details", "Details", new { postId = item.PostId, empId = item.EmpId }) |
-                @Html.ActionLink("By PostId", "ByPostId", new { postId = item.PostId}) |
-                @Html.ActionLink("By EmpId", "ByEmpId", new { empId = item.EmpId }) |
-                @Html.ActionLink("Delete", "Delete", new { postId = item.PostId, empId = item.EmpId })
+                        @Html.ActionLink("Edit", "Edit", new { postId = item.PostId, empId = item.EmpId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { postId = item.PostId, empId = item.EmpId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("By PostId", "ByPostId", new { postId = item.PostId, }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("By EmpId", "ByEmpId", new { empId = item.EmpId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { postId = item.PostId, empId = item.EmpId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
 }

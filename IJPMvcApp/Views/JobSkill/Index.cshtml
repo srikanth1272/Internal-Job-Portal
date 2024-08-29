@@ -28,7 +28,7 @@
 <h1 style="text-align: center; font-weight:bold">Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New Job Skill</a>
 
 </p>
 <div class="container">
@@ -60,9 +60,9 @@
                 @Html.DisplayFor(modelItem => item.Experience)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { jobId=item.JobId,skillId=item.SkillId }) |
-                    @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }) |
-                    @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId })
+                        @Html.ActionLink("Edit", "Edit", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
 }

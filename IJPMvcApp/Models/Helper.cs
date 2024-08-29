@@ -1,18 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Web;
 
 namespace IJPMvcApp.Models
 {
     public class Helper
-    {
-        public static string userName = "Harry";
-        public static string role = "admin";
-        public static string secretKey = "My Name is James, James Bond 007";
-        static HttpClient _client = new HttpClient() { BaseAddress = new Uri("http://localhost:5059/api/Auth/") };
+    { 
+        IHttpContextAccessor accessor = new HttpContextAccessor();
+        public string GetToken()
+        {
+            string token = accessor.HttpContext.Session.GetString("token");
+            return token;
+        }
 
         public static async Task<List<SelectListItem>> GetJobs()
         {
             List<SelectListItem> jobIds = new List<SelectListItem>();
-            string token = await _client.GetStringAsync($"{userName}/{role}/{secretKey}");
+            Helper obj = new Helper();
+            string token =obj.GetToken();
             HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5152/api/Job/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Job> jobs = await client.GetFromJsonAsync<List<Job>>("");
@@ -25,7 +29,8 @@ namespace IJPMvcApp.Models
         public static async Task<List<SelectListItem>> GetSkills()
         {
             List<SelectListItem> skillIds = new List<SelectListItem>();
-            string token = await _client.GetStringAsync($"{userName}/{role}/{secretKey}");
+            Helper obj = new Helper();
+            string token = obj.GetToken();
             HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5055/api/Skill/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Skill> skills = await client.GetFromJsonAsync<List<Skill>>("");
@@ -38,7 +43,8 @@ namespace IJPMvcApp.Models
         public static async Task<List<SelectListItem>> GetEmployees()
         {
             List<SelectListItem> employeeIds = new List<SelectListItem>();
-            string token = await _client.GetStringAsync($"{userName}/{role}/{secretKey}");
+            Helper obj = new Helper();
+            string token = obj.GetToken();
             HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Employee> employees = await client.GetFromJsonAsync<List<Employee>>("");
@@ -51,7 +57,8 @@ namespace IJPMvcApp.Models
         public static async Task<List<SelectListItem>> GetJobposts()
         {
             List<SelectListItem> postIds = new List<SelectListItem>();
-            string token = await _client.GetStringAsync($"{userName}/{role}/{secretKey}");
+            Helper obj = new Helper();
+            string token = obj.GetToken();
             HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<JobPost> JobPosts = await client.GetFromJsonAsync<List<JobPost>>("");
