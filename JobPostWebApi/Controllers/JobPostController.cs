@@ -63,7 +63,7 @@ namespace JobPostWebApi.Controllers
 
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer",token);
-                await client.PostAsJsonAsync("JobPost/",new {PostId = jobPost.PostId});
+                await client.PostAsJsonAsync("JobPost/",new {PostId = jobPost.PostId,LastDatetoApply = jobPost.LastDatetoApply});
                 return Created($"api/JobPost/{jobPost.PostId}", jobPost);
             }
             catch (JobPostException ex)
