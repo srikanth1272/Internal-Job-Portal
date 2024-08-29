@@ -5,7 +5,7 @@ namespace IJPMvcApp.Models
     
     public class Skill
      {
-        [Display(Name = "SkillId")]
+        [Display(Name = "Skill Id")]
 
         [RegularExpression(@"\w{6}", ErrorMessage = "SkillId  must be 6 characters")]
 

@@ -7,7 +7,7 @@
 <h1 style="text-align: center; font-weight:bold">Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New Skill</a>
 
 </p>
 <div class="container">
@@ -45,11 +45,11 @@
                 @Html.DisplayFor(modelItem => item.SkillCategory)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  skillId=item.SkillId }) |
-                @Html.ActionLink("Details", "Details", new { skillId=item.SkillId }) |
-                @Html.ActionLink("Delete", "Delete", new {  skillId=item.SkillId  }) |
-                @Html.ActionLink("GetBySkillCategory", "GetBySkillCategory", new { skillCategory = item.SkillCategory }) |
-               @Html.ActionLink("GetBySkillLevel", "GetBySkillLevel", new { skillLevel = item.SkillLevel }) |
+                        @Html.ActionLink("Edit", "Edit", new { skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Details", "Details", new { skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("GetBySkillCategory", "GetBySkillCategory", new { skillCategory = item.SkillCategory }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("GetBySkillLevel", "GetBySkillLevel", new { skillLevel = item.SkillLevel }, new { @class = "btn btn-primary" }) 
 
 
 
