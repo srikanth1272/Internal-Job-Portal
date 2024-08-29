@@ -1,0 +1,1 @@
+﻿Alter Table jobpost add LastDatetoApply Date;
