@@ -1,4 +1,5 @@
 ﻿using ApplyJobLibrary.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace ApplyJobLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new ApplyJobException(ex.Message);
+
+                throw new ApplyJobException(ex.InnerException.Message);
             }
         }
 
