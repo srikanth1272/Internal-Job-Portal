@@ -56,6 +56,7 @@
                         @Html.ActionLink("Details", "Details", new { postId = item.PostId }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("By JobId", "ByJobId", new { jobId = item.JobId }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("Delete", "Delete", new { postId = item.PostId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Apply", "ApplyJob", new { postId = item.PostId }, new { @class = "btn btn-success" })
             </td>
         </tr>
 }

@@ -6,11 +6,11 @@ namespace IJPMvcApp.Models;
 
 public  class JobPost
 {
-    [Display(Name = "PostId")]
+    [Display(Name = "Post Id")]
 
     public int PostId { get; set; }
 
-    [Display(Name = "JobId")]
+    [Display(Name = "Job Id")]
     [Required(ErrorMessage = "Job Id is required")]
     public string JobId { get; set; } = null!;
 

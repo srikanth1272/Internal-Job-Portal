@@ -12,7 +12,9 @@ namespace IJPMvcApp.Controllers
         static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
         public async Task<ActionResult> Index()
         {
-            
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<ApplyJob> appliedJobs = await client.GetFromJsonAsync<List<ApplyJob>>("");
             return View(appliedJobs);
         }

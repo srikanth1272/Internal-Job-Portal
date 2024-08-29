@@ -9,10 +9,13 @@ namespace IJPMvcApp.Controllers
     public class JobPostController : Controller
     {
         static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
+        static HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
         public async Task<ActionResult> Index()
         {
             string token = HttpContext.Session.GetString("token");
             client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            client2.DefaultRequestHeaders.Authorization = new
             System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<JobPost> jobPosts = await client.GetFromJsonAsync<List<JobPost>>("");
             return View(jobPosts);
@@ -29,7 +32,7 @@ namespace IJPMvcApp.Controllers
             return View(jobPosts);
         }
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
             return View();
         }
@@ -44,6 +47,28 @@ namespace IJPMvcApp.Controllers
                 
  
                 var response=await client.PostAsJsonAsync("", jobPost);
+                response.EnsureSuccessStatusCode();
+                return RedirectToAction(nameof(Index));
+            }
+            catch (HttpRequestException ex) { throw; }
+        }
+        public ActionResult ApplyJob(int postId)
+        {
+            ApplyJob applyJob = new ApplyJob();
+            applyJob.PostId = postId;
+            applyJob.AppliedDate = DateOnly.FromDateTime(DateTime.Now);
+            applyJob.ApplicationStatus = "Reviewing";
+            return View(applyJob);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        
+        public async Task<ActionResult> ApplyJob(ApplyJob applyJob)
+        {
+            try
+            {
+                var response = await client2.PostAsJsonAsync("", applyJob);
                 response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }

@@ -1,17 +1,20 @@
-﻿@model IJPMvcApp.Models.EmployeeSkill
+﻿@model IJPMvcApp.Models.ApplyJob
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "ApplyJob";
 }
 
-<h1>Create</h1>
-
-<h4>EmployeeSkill</h4>
+<h1>Apply Job</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="ApplyJob">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PostId" class="control-label"></label>
+                <input asp-for="PostId" class="form-control" readonly/>
+                <span asp-validation-for="PostId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="EmpId" class="control-label"></label>
                 <select asp-for="EmpId" class="form-control">
@@ -24,30 +27,22 @@
                 <span asp-validation-for="EmpId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SkillId" class="control-label"></label>
-                <select asp-for="SkillId" class="form-control">
-                    <option></option>
-                    @foreach (SelectListItem skillIds in await Helper.GetSkills())
-                    {
-                        <option value="@skillIds.Value">@skillIds.Text</option>
-                    }
-                </select>
-                <span asp-validation-for="SkillId" class="text-danger"></span>
+                <label asp-for="AppliedDate" class="control-label"></label>
+                <input asp-for="AppliedDate" class="form-control" readonly/>
+                <span asp-validation-for="AppliedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SkillExperience" class="control-label"></label>
-                <input asp-for="SkillExperience" class="form-control" />
-                <span asp-validation-for="SkillExperience" class="text-danger"></span>
+                <label asp-for="ApplicationStatus" class="control-label"></label>
+                <input asp-for="ApplicationStatus" class="form-control" readonly/>
+                <span asp-validation-for="ApplicationStatus" class="text-danger"></span>
             </div>
             <div class="form-group" style="margin-top: 15px;">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Apply" class="btn btn-success" />
                 <a asp-action="Index" class="btn btn-primary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
