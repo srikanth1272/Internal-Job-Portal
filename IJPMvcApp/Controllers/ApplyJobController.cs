@@ -50,12 +50,12 @@ namespace IJPMvcApp.Controllers
             try
             {
                  await client.PostAsJsonAsync("", appliedJob);
+              
+                var response = await client.PostAsJsonAsync("", appliedJob);
+                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            catch (HttpRequestException ex) { throw; }
         }
 
         [Route("ApplyJob/Edit/{postId}/{empId}")]
@@ -100,13 +100,11 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
-                await client.DeleteAsync($"{postId}/{empId}");
+                var response=await client.DeleteAsync($"{postId}/{empId}");
+                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            catch (HttpRequestException ex) { throw; }
         }
     }
 }

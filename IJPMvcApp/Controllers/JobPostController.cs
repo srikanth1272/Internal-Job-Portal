@@ -43,15 +43,11 @@ namespace IJPMvcApp.Controllers
             {
                 
  
-                await client.PostAsJsonAsync("", jobPost);
-                if (ModelState.IsValid)
-                    return RedirectToAction(nameof(Index));
-                return View();
+                var response=await client.PostAsJsonAsync("", jobPost);
+                response.EnsureSuccessStatusCode();
+                return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            catch (HttpRequestException ex) { throw; }
         }
 
         [Route("JobPost/Edit/{postId}")]
@@ -96,13 +92,11 @@ namespace IJPMvcApp.Controllers
         {
             try
             {  
-                await client.DeleteAsync("" + postId);
+                var response=await client.DeleteAsync("" + postId);
+                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            catch (HttpRequestException ex) { throw; }
         }
     }
 }
