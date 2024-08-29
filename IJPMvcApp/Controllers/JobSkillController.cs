@@ -51,13 +51,11 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
-                await client.PostAsJsonAsync("", jobSkill);
+                var response=await client.PostAsJsonAsync("", jobSkill);
+                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            catch (HttpRequestException ex) { throw; }
         }
 
 
@@ -106,13 +104,11 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
-                await client.DeleteAsync("" + jobId + "/" + skillId);
+                var response=await client.DeleteAsync("" + jobId + "/" + skillId);
+                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            catch (HttpRequestException ex) { throw; }
         }
     }
  }

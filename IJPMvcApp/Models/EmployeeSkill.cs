@@ -16,7 +16,7 @@ namespace IJPMvcApp.Models
         public string SkillId { get; set; } = null!;
 
 
-        [Range(1, 90, ErrorMessage = "Skill Experience must be in between 0 to 90")]
+        [Range(0, 90, ErrorMessage = "Skill Experience must be in between 0 to 90")]
         [Display(Name = "Skill Experience")]
 
         public int SkillExperience { get; set; }
