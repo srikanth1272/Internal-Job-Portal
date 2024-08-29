@@ -17,7 +17,7 @@ namespace IJPMvcApp.Models
             List<SelectListItem> jobIds = new List<SelectListItem>();
             Helper obj = new Helper();
             string token =obj.GetToken();
-            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSvc/") };
+            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5152/api/Job/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Job> jobs = await client.GetFromJsonAsync<List<Job>>("");
             foreach (Job job in jobs)
@@ -31,7 +31,7 @@ namespace IJPMvcApp.Models
             List<SelectListItem> skillIds = new List<SelectListItem>();
             Helper obj = new Helper();
             string token = obj.GetToken();
-            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/SkillSvc/") };
+            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5055/api/Skill/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Skill> skills = await client.GetFromJsonAsync<List<Skill>>("");
             foreach (Skill skill in skills)
@@ -45,7 +45,7 @@ namespace IJPMvcApp.Models
             List<SelectListItem> employeeIds = new List<SelectListItem>();
             Helper obj = new Helper();
             string token = obj.GetToken();
-            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSvc/") };
+            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5005/api/Employee/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<Employee> employees = await client.GetFromJsonAsync<List<Employee>>("");
             foreach (Employee employee in employees)
@@ -59,7 +59,7 @@ namespace IJPMvcApp.Models
             List<SelectListItem> postIds = new List<SelectListItem>();
             Helper obj = new Helper();
             string token = obj.GetToken();
-            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
+            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5117/api/JobPost/") };
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             List<JobPost> JobPosts = await client.GetFromJsonAsync<List<JobPost>>("");
             foreach (JobPost jobPost in JobPosts)

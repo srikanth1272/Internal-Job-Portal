@@ -1,7 +1,78 @@
 ﻿
+
 @{
     ViewData["Title"] = "Interanl Job Portal";
 }
+
+<style>
+    body {
+        background-color: cornsilk;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .hero-section {
+        background: linear-gradient(135deg, #8f2b1442, #1181d3f5);
+        color: white;
+        padding: 60px 0;
+        text-align: center;
+        border-radius:  550px 50px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        margin-top: -10px;
+    }
+
+    .card {
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+        background-color: #ffffff;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+    .lead{
+        font-weight:bold;
+        font-size:20px;
+    }
+
+    .footer {
+        background-color: #0864a7db;
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        border-radius: 50px 50px 0 0;
+        box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 50px;
+    }
+
+        .footer p {
+            margin: 0;
+        }
+</style>
 
 <div class="hero-section">
     <h1 class="display-4"> Internal Job Portal</h1>
