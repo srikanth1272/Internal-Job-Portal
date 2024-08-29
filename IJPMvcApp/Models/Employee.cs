@@ -14,16 +14,17 @@ namespace IJPMvcApp.Models
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Incorrect Email Format")]
         [Display(Name = "Email Id")]
         public string EmailId { get; set; } = null!;
-        // [MaxLength(10, ErrorMessage = "Phone No must be 10 digits")]
-       // [Phone]
+       
         [RegularExpression(@"\d{10}", ErrorMessage = "phone number must be 10 digits")]
         public string PhoneNo { get; set; } = null!;
+
+
         [Range(0,90,ErrorMessage ="Experience must be in between 0 to 90")]
         [Display(Name = "Total Experience")]
-
         public int TotalExperience { get; set; }
-        [RegularExpression(@"\w{6}", ErrorMessage = "Job Id must be 6 characters")]
+       
         [Display(Name = "Job Id")]
+        [Required(ErrorMessage ="Job Id is required")]
         public string JobId { get; set; } = null!;
     }
 }

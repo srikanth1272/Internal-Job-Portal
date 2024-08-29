@@ -25,6 +25,7 @@
             <div class="form-group">
                 <label asp-for="SkillLevel" class="control-label"></label>
                 <select asp-for="SkillLevel" class="form-control">
+                    <option></option>
                     @foreach (SelectListItem level in await Helper.GetLevel())
                     {
                         <option value="@level.Value">@level.Text</option>

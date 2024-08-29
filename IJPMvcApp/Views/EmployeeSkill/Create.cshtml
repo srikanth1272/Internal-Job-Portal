@@ -15,6 +15,7 @@
             <div class="form-group">
                 <label asp-for="EmpId" class="control-label"></label>
                 <select asp-for="EmpId" class="form-control">
+                    <option></option>
                     @foreach (SelectListItem empIds in await Helper.GetEmployees())
                     {
                         <option value="@empIds.Value">@empIds.Text</option>
@@ -25,6 +26,7 @@
             <div class="form-group">
                 <label asp-for="SkillId" class="control-label"></label>
                 <select asp-for="SkillId" class="form-control">
+                    <option></option>
                     @foreach (SelectListItem skillIds in await Helper.GetSkills())
                     {
                         <option value="@skillIds.Value">@skillIds.Text</option>
