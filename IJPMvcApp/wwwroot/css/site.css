@@ -24,7 +24,7 @@ body {
     margin: 0;
     padding: 0;
     width:auto;
-    background-image: url('/images/imagew2.jfif'); /* Path to your background image */
+    background-image: url('/images/bg7.jpg'); /* Path to your background image */
     background-size: cover; /* Scale the image to cover the whole page */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent repeating */

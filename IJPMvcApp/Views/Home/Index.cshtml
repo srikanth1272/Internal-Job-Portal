@@ -3,74 +3,7 @@
 @{
     ViewData["Title"] = "Interanl Job Portal";
 }
-@*<html>
-<header>
-<div class="text-center">
-    <h1 class="display-4"> Internal Job Portal</h1>
-    
-</div>
-</header>
 
-@{
-    ViewData["BodyClass"] = "home-page"; // Add the home-page class to the body tag
-}
-<body>
-<div class="custom-text">
-
-    <span class="bold">Your Dream</span> <span class="normal">Job is waiting</span>
-</div>
-
-<section class="sec">
-<div class="container1">
-    <div class="card-container">
-        <!-- Card for Job -->
-        <div class="card">
-            <img src="~/images/job.jpg" alt="Job Logo" class="card-logo">
-            <h3>Job Title</h3>
-            <p>Short description of the job </p>
-                <a href="@Url.Action("Index", "Job")" class="btn btn-primary" style="color:aliceblue">View Details</a>
-        </div> 
-
-        <!-- Card for Skill -->
-        <div class="card">
-            <img src="~/images/Skill.jpg" alt="Skill Logo" class="card-logo">
-            <h3>Skill Name</h3>
-            <p>Short description of the skill.</p>
-                    <a href="@Url.Action("Index", "Skill")" class="btn btn-primary" style="color:aliceblue">View Details</a>
-        </div>
-                <div class="card">
-                    <img src="~/images/Skill.jpg" alt="Skill Logo" class="card-logo">
-                    <h3>Skill Name</h3>
-                    <p>Short description of the JobSkill.</p>
-                    <a href="@Url.Action("Index", "JobSkill")" class="btn btn-primary" style="color:aliceblue">View Details</a>
-                </div>
-                <div class="card">
-                    <img src="~/images/Skill.jpg" alt="Skill Logo" class="card-logo">
-                    <h3>Skill Name</h3>
-                    <p>Short description of the Employee.</p>
-                    <a href="@Url.Action("Index", "Employee")" class="btn btn-primary" style="color:aliceblue">View Details</a>
-                </div>
-                <div class="card">
-                    <img src="~/images/Skill.jpg" alt="Skill Logo" class="card-logo">
-                    <h3>Skill Name</h3>
-                    <p>Short description of the EmployeeSkill.</p>
-                    <a href="@Url.Action("Index", "EmployeeSkill")" class="btn btn-primary" style="color:aliceblue">View Details</a>
-                </div>
-                <div class="card">
-                    <img src="~/images/Skill.jpg" alt="Skill Logo" class="card-logo">
-                    <h3>Skill Name</h3>
-                    <p>Short description of the JobPost.</p>
-                    <a href="@Url.Action("Index", "JobPost")" class="btn btn-primary" style="color:aliceblue">View Details</a>
-                </div>
-
-        <!-- Add more cards as needed -->
-    </div>
-</div>
-</section>
-</body>
-</html>
-
-*@
 <!-- Custom styles -->
 <style>
     body {
@@ -169,10 +102,9 @@
     <div class="container1">
         <div class="card-container">
             <div class="card">
-                <img src="~/images/job.jpg" alt="Job Logo" class="card-logo">
-                <h3>Jobs</h3>
-               @*<p>Short description of the job </p> *@
-                <a href="@Url.Action("Index", "Job")" class="btn1 btn-primary" style="color:aliceblue">View Details</a>
+                <a href="@Url.Action("Index", "Job")"  style="color:aliceblue">
+                    <img src="~/images/job.jpg" alt="Job Logo" class="card-logo">
+                    <h3 style="color:black; font-weight:bold">Jobs</h3>
             </div>
             <div class="card">
                 <img src="~/images/Skill.jpg" alt="Skill Logo" class="card-logo">
