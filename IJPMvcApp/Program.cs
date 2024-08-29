@@ -45,7 +45,7 @@ namespace IJPMvcApp
             app.UseSession();
             
             app.UseRouting();
-            app.UseCors("AllowAll");
+          //  app.UseCors("AllowAll");
             app.UseAuthentication();
             app.UseAuthorization();
 
