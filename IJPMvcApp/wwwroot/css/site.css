@@ -19,35 +19,32 @@ html {
 body {
   margin-bottom: 60px;
 }
-/* Ensure the background image covers the entire viewport */
 body {
     margin: 0;
     padding: 0;
     width:auto;
-    background-image: url('/images/imagew2.jfif'); /* Path to your background image */
-    background-size: cover; /* Scale the image to cover the whole page */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent repeating */
-    min-height: 100vh; /* Ensure the body takes at least the full viewport height */
-    position: relative; /* Ensure positioning context for absolutely positioned content */
+    background-image: url('/images/bg7.jpg');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    min-height: 100vh; 
+    position: relative;
 }
 
 /* Ensure content is not hidden behind background */
 .container {
     position: relative;
-    z-index: 1; /* Place content above the background image */
-    background-color: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background for content */
+    z-index: 1; 
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* Debugging style */
 .home-page .custom-text {
-    border: 2px solid red; /* Ensure the border appears */
-    background: rgba(0, 0, 0, 0.5); /* Background for visibility */
+    border: 2px solid red; 
+    background: rgba(0, 0, 0, 0.5);
 }
 .text-center{
     bottom:100px;
 }
-/* Ensure the text only appears on the home page */
 .custom-text {
     position: absolute;
     left: 0;
@@ -56,25 +53,23 @@ body {
     padding: 20px;
     font-size: 3em;
     font-family: Arial, sans-serif;
-    color: #fff; /* Text color */
-     /* Semi-transparent background */
-    border-radius: 5px; /* Optional: Rounded corners */
+    color: #fff; 
+    border-radius: 5px; 
 }
 
-    /* Style for the bold part */
+    
     .custom-text .bold {
         font-weight: bold;
-        color: #e6cccc; /* Distinctive color for testing */
+        color: #e6cccc; 
     }
 
-    /* Style for the normal part */
     .custom-text .normal {
         font-weight: normal;
-        color: #e4b0b0; /* Distinctive color for testing */
+        color: #e4b0b0; 
     }
 
 /*Carsds*/
-/* styles.css */
+
 .sec{
     background:none;
 }
@@ -107,7 +102,7 @@ body {
     }
 
 .card-logo {
-    width: 60px; /* Adjust the size as needed */
+    width: 60px; 
     height: auto;
     margin-left:auto;
     margin-right:auto;
@@ -156,5 +151,5 @@ body {
         background-color: #0056b3;
     }
 .navbar {
-    background-color: black; /* Example: Change to your desired color */
+    background-color: black; 
 }
