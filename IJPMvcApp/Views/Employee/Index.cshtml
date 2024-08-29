@@ -5,7 +5,7 @@
 }
 <h1 style="text-align: center; font-weight:bold">Index</h1>
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Create New Employee</a>
 
 </p>
 <div class="container">
@@ -55,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.JobId)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {empId=item.EmpId }) |
-                @Html.ActionLink("Details", "Details", new { empId=item.EmpId}) |
-                @Html.ActionLink("EmployeesByjobId", "ByjobId", new { jobId=item.JobId}) |
-                @Html.ActionLink("Delete", "Delete", new { empId=item.EmpId })
+                        @Html.ActionLink("Edit", "Edit", new { empId = item.EmpId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Details", "Details", new { empId = item.EmpId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("EmployeesByjobId", "ByjobId", new { jobId = item.JobId }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("Delete", "Delete", new { empId = item.EmpId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
 }
