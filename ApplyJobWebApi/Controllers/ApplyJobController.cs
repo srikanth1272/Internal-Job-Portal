@@ -66,7 +66,19 @@ namespace ApplyJobWebApi.Controllers
         {
             try
             {
-                await repo.AddApplyJobAsync(appliedJob);
+                string userName = "Harry";
+                string role = "admin";
+                string secretKey = "My Name is James, James Bond 007";
+                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
+                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
+                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                var jobpost = await client.GetFromJsonAsync<JobPost>(""+appliedJob.PostId);
+                if (appliedJob.AppliedDate <= jobpost.LastDatetoApply)
+                    await repo.AddApplyJobAsync(appliedJob);
+                else
+                    throw new ApplyJobException("Applications closed");
                 return Created($"api/ApplyJob/{appliedJob.PostId}/{appliedJob.EmpId}", appliedJob);
             }
             catch (ApplyJobException ex)
