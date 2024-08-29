@@ -43,9 +43,9 @@
                 @Html.DisplayFor(modelItem => item.SkillCategory)
             </td>
             <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.SkillId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "Details", new { id = item.SkillId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { id = item.SkillId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "Edit", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
 }     

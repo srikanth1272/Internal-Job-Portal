@@ -45,16 +45,14 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
-
-                var response=await client.PostAsJsonAsync<Job>("", job);
+                var response = await client.PostAsJsonAsync<Job>("", job);
                 response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch(HttpRequestException ex)
+            catch (HttpRequestException ex)
             {
                 throw;
             }
-            
         }
 
         // GET: JobController/Edit/5
@@ -106,13 +104,13 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
-               var response= await client.DeleteAsync($"{jobId}");
-                response.EnsureSuccessStatusCode();
+              var response= await client.DeleteAsync($"{jobId}");
+               response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch(HttpRequestException ex) 
+            catch
             {
-                    throw;
+                throw;
             }
         }
     }

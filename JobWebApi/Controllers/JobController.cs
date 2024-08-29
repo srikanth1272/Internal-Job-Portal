@@ -45,6 +45,8 @@ namespace JobWebApi.Controllers
         {
             try
             {
+                
+
                 await repo.AddJobDetailsAsync(job);
                 string userName = "Harry";
                 string role = "admin";
@@ -64,7 +66,6 @@ namespace JobWebApi.Controllers
                 client3.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                 await client3.PostAsJsonAsync("Job/", new { JobId = job.JobId });
 
-                await repo.AddJobDetailsAsync(job);
                 return Created($"api/Job/{job.JobId}", job);
             }
             catch (JobException ex)
@@ -123,21 +124,26 @@ namespace JobWebApi.Controllers
                         HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
                         client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client4.PostAsJsonAsync("Job/", new { JobId = jobId });
+                        
                         }
                        if (response1.IsSuccessStatusCode)
                        {
                         HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
                         client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client5.PostAsJsonAsync("Job/", new { JobId = jobId });
-                    
-                       }
-                       if (response2.IsSuccessStatusCode)
+                        
+
+
+                    }
+                    if (response2.IsSuccessStatusCode)
                        {
                         HttpClient client6 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSvc/") };
                         client6.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client6.PostAsJsonAsync("Job/", new { JobId = jobId });
-                       }
-                    
+                        
+
+                    }
+
                     return BadRequest("Cannot delete the job");
                 }
                
