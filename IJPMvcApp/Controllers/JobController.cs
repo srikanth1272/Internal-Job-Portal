@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using IJPMvcApp.Models;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
+using System.Data.Common;
 namespace IJPMvcApp.Controllers
 {
    [Authorize]
@@ -75,6 +76,7 @@ namespace IJPMvcApp.Controllers
             try
             {
                 await client.PutAsJsonAsync<Job>($"{jobId}",job);
+               
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -104,13 +106,13 @@ namespace IJPMvcApp.Controllers
         {
             try
             {
-                await client.DeleteAsync($"{jobId}");
-
+               var response= await client.DeleteAsync($"{jobId}");
+                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(HttpRequestException ex) 
             {
-                return View();
+                    throw;
             }
         }
     }
