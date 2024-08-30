@@ -61,7 +61,7 @@ namespace IJPMvcApp.Controllers
 
                 throw new Exception(errorMessage);
             }
-            }
+        }
 
         // GET: EmployeeSkillController/Edit/5
         [Authorize(Roles = "Admin")]
@@ -77,16 +77,10 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string empId, string skillId, EmployeeSkill employeeSkill)
         {
-            try
-            {
                 await client.PutAsJsonAsync(""+empId +"/"+ skillId,employeeSkill);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
+
         [Route("EmployeeSkill/Delete/{empId}/{skillId}")]
         [Authorize(Roles = "Admin")]
         // GET: EmployeeSkillController/Delete/5
@@ -103,16 +97,9 @@ namespace IJPMvcApp.Controllers
         [Route("EmployeeSkill/Delete/{empId}/{skillId}")]
         public async Task<ActionResult> Delete(string empId, string skillId, EmployeeSkill employeeSkill)
         {
-            try
-            {
                 var response=await client.DeleteAsync(""+empId +"/"+ skillId);
                 response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
-            }
-            catch (HttpRequestException ex)
-            {
-                throw;
-            }
         }
     }
 }

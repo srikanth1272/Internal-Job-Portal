@@ -51,7 +51,7 @@ namespace IJPMvcApp.Controllers
         public async Task<ActionResult> Create(JobSkill jobSkill)
         {
            
-              var response=await client.PostAsJsonAsync("", jobSkill);
+            var response=await client.PostAsJsonAsync("", jobSkill);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
@@ -83,15 +83,8 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string jobId,string skillId, JobSkill jobSkill)
         {
-            try
-            {
                 await client.PutAsJsonAsync(""+jobId+"/"+skillId, jobSkill);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: JobSkillController/Delete/5
@@ -110,13 +103,9 @@ namespace IJPMvcApp.Controllers
         [Route("JobSkill/Delete/{jobId}/{skillId}")]
         public async Task<ActionResult> Delete(string jobId, string skillId, IFormCollection collection)
         {
-            try
-            {
                 var response=await client.DeleteAsync("" + jobId + "/" + skillId);
                 response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
-            }
-            catch (HttpRequestException ex) { throw; }
         }
     }
  }

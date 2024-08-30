@@ -72,82 +72,73 @@ namespace SkillWebApi.Controllers
         {
             try
             {
-
                 await repo.UpdateSkillDetailsAsync(skillId, skill);
-                    return Ok(skill);
-                
-
-
-
+                return Ok(skill);
             }
             catch (SkillException ex)
             {
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("{skillId}")]
         public async Task<ActionResult> Delete(string skillId)
-        {
-            
-                
-                string userName = "Harry";
-                string role = "admin";
-                string secretKey = "My Name is James, James Bond 007";
-                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
-                string token = await client1.GetStringAsync($"{userName}/{role}/{secretKey}");
+        {               
+            string userName = "Harry";
+            string role = "admin";
+            string secretKey = "My Name is James, James Bond 007";
+            HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
+            string token = await client1.GetStringAsync($"{userName}/{role}/{secretKey}");
 
 
-                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
-                client2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                var response1 = await client2.DeleteAsync("Skill/" + skillId);
+            HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
+            client2.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            var response1 = await client2.DeleteAsync("Skill/" + skillId);
 
-                HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
-                client3.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                var response2 = await client3.DeleteAsync("Skill/" + skillId);
-                if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
+            HttpClient client3 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
+            client3.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            var response2 = await client3.DeleteAsync("Skill/" + skillId);
+            if (response1.IsSuccessStatusCode && response2.IsSuccessStatusCode)
+            {
+                await repo.RemoveSkillDetailsAsync(skillId);
+                return Ok();
+            }
+            else
+            {
+                if (response1.IsSuccessStatusCode)
                 {
-                    await repo.RemoveSkillDetailsAsync(skillId);
-                    return Ok();
+                    HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
+                    client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    await client4.PostAsJsonAsync("Skill/", new { SkillId = skillId });
                 }
-                else
+                if (response2.IsSuccessStatusCode)
                 {
-                    if (response1.IsSuccessStatusCode)
-                    {
-                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
-                        client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                        await client4.PostAsJsonAsync("Skill/", new { SkillId = skillId });
-                    }
-                    if (response2.IsSuccessStatusCode)
-                    {
-                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
-                        client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                        await client5.PostAsJsonAsync("Skill/", new { SkillId = skillId });
+                    HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
+                    client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    await client5.PostAsJsonAsync("Skill/", new { SkillId = skillId });
+                }
 
-                    }
                 string errorMessage = string.Empty;
                
                 if (!response1.IsSuccessStatusCode)
                 {
                     var errContent = await response1.Content.ReadAsStringAsync();
                     var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
-                    errorMessage += errorObj.GetProperty("message").GetString() + "\n";
+                    errorMessage += errorObj.GetProperty("message").GetString() + "<br/><br/>";
                 }
                 if (!response2.IsSuccessStatusCode)
                 {
                     var errContent = await response2.Content.ReadAsStringAsync();
                     var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
                     errorMessage += errorObj.GetProperty("message").GetString();
-
                 }
 
                 return BadRequest(errorMessage);
 
             }
-
-
-
-
         }
+
+
         [HttpGet("BySkillLevel/{skillLevel}")]
         public async Task<ActionResult> GetSkillsBySkillLevel(string skillLevel)
         {
@@ -161,6 +152,8 @@ namespace SkillWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
+
         [HttpGet("BySkillCategory/{skillCategory}")]
         public async Task<ActionResult> GetSkillsByCategory(string skillCategory)
         {
@@ -174,6 +167,5 @@ namespace SkillWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
-
     }
 }

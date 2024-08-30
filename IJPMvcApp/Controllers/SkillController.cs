@@ -41,7 +41,7 @@ namespace IJPMvcApp.Controllers
         public async  Task<ActionResult> Create(Skill skill)
         {
             
-                var response=await client.PostAsJsonAsync<Skill>("", skill);
+            var response=await client.PostAsJsonAsync<Skill>("", skill);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
@@ -72,38 +72,31 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string skillId, Skill skill)
         {
-            try
-            {
                 await client.PutAsJsonAsync<Skill>($"{skillId}", skill);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: SkillController/Delete/5
         
-         [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Skill/Delete/{skillId}")]
 
         public async Task<ActionResult> Delete(string skillId)
         {
-           Skill skill=await client.GetFromJsonAsync<Skill>(""+skillId);
+            Skill skill=await client.GetFromJsonAsync<Skill>(""+skillId);
             return View(skill);
         }
 
         // POST: SkillController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-         [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Skill/Delete/{skillId}")]
 
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
         {
             
-                var response = await client.DeleteAsync($"{skillId}");
+            var response = await client.DeleteAsync($"{skillId}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));

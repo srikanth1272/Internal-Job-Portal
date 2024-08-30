@@ -1,4 +1,4 @@
-﻿using Azure;
+﻿
 using EmployeeLibrary.Models;
 using EmployeeSkillLibrary.Repo;
 using Microsoft.AspNetCore.Authorization;
@@ -145,7 +145,7 @@ namespace EmployeeWebApi.Controllers
                 {
                     var errContent = await response1.Content.ReadAsStringAsync();
                     var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
-                    errorMessage += errorObj.GetProperty("message").GetString() + "\n";
+                    errorMessage += errorObj.GetProperty("message").GetString()+ "<br/><br/>";
                 }
                 if (!response.IsSuccessStatusCode)
                 {

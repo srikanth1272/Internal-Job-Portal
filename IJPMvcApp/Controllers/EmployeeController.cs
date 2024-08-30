@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
@@ -76,15 +75,8 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string empId, Employee employee)
         {
-            try
-            {
-                await client.PutAsJsonAsync(empId, employee);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+             await client.PutAsJsonAsync(empId, employee);
+             return RedirectToAction(nameof(Index));
         }
 
         // GET: EmployeeController/Delete/5
@@ -111,7 +103,6 @@ namespace IJPMvcApp.Controllers
             else
             {
                 var errorContent = await response.Content.ReadAsStringAsync();
-
                 throw new Exception(errorContent);
             }
         }

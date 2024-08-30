@@ -17,12 +17,14 @@ namespace JobPostWebApi.Controllers
         {
             repo = repository;
         }
+
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             List<JobPost> jobPosts = await repo.GetAllJobPostsAsync();
             return Ok(jobPosts);
         }
+
         [HttpGet("{postId}")]
         public async Task<ActionResult> GetOne(int postId)
         {
@@ -36,6 +38,7 @@ namespace JobPostWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [HttpGet("ByJobId/{jobId}")]
         public async Task<ActionResult> GetAllByJobId(string jobId)
         {
@@ -49,6 +52,7 @@ namespace JobPostWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Insert(JobPost jobPost)
         {
@@ -73,6 +77,7 @@ namespace JobPostWebApi.Controllers
 
             }
         }
+
         [HttpPost("Job")]
         public async Task<ActionResult> InsertJob(Job job)
         {
@@ -100,6 +105,7 @@ namespace JobPostWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("{postId}")]
         public async Task<ActionResult> Delete(int postId)
         {
@@ -129,6 +135,7 @@ namespace JobPostWebApi.Controllers
                     return BadRequest(errorMessage);
                 }
         }
+
         [HttpDelete("job/{jobId}")]
         public async Task<ActionResult> DeleteJob(string jobId)
         {

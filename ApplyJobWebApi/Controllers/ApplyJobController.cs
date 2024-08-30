@@ -16,12 +16,14 @@ namespace ApplyJobWebApi.Controllers
         {
             repo = repository;
         }
+
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             List<ApplyJob> appliedJobs = await repo.GetAllApplyJobsAsync();
             return Ok(appliedJobs);
         }
+
         [HttpGet("{postId}/{empId}")]
         public async Task<ActionResult> GetOne(int postId, string empId)
         {
@@ -35,6 +37,7 @@ namespace ApplyJobWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [HttpGet("ByPostId/{postId}")]
         public async Task<ActionResult> GetAllByPostId(int postId)
         {
@@ -48,6 +51,7 @@ namespace ApplyJobWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [HttpGet("ByEmpId/{empId}")]
         public async Task<ActionResult> GetAllByEmpId(string empId)
         {
@@ -61,6 +65,7 @@ namespace ApplyJobWebApi.Controllers
                 return NotFound(ex.Message);
             }
         }
+
         [HttpPost]
         public async Task<ActionResult> Insert(ApplyJob appliedJob)
         {
@@ -86,6 +91,7 @@ namespace ApplyJobWebApi.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
         [HttpPost("JobPost")]
         public async Task<ActionResult> InsertJobPost(JobPost jobPost)
         {
@@ -99,6 +105,7 @@ namespace ApplyJobWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpPost("Employee")]
         public async Task<ActionResult> InsertEmployee(Employee employee)
         {
@@ -126,6 +133,7 @@ namespace ApplyJobWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("{postId}/{empId}")]
         public async Task<ActionResult> Delete(int postId, string empId)
         {
@@ -139,6 +147,7 @@ namespace ApplyJobWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
         [HttpDelete("JobPost/{postId}")]
         public async Task<ActionResult> DeleteJobPost(int postId)
         {
@@ -153,6 +162,7 @@ namespace ApplyJobWebApi.Controllers
                 
             }
         }
+
         [HttpDelete("Employee/{empId}")]
         public async Task<ActionResult> DeleteEmployee(string empId)
         {

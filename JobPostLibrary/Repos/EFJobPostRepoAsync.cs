@@ -21,7 +21,6 @@ namespace JobPostLibrary.Repos
             }
             catch (Exception ex) {
                 throw new JobPostException(ex.InnerException.Message);
-
             }
         }
         public async Task RemoveJobAsync(string jobId)
