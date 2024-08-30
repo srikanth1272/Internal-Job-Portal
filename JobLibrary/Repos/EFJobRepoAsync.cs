@@ -20,7 +20,8 @@ namespace JobLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new JobException(ex.Message);
+                throw new JobException(ex.InnerException.Message);
+
             }
         }
 
@@ -53,7 +54,7 @@ namespace JobLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new JobException(ex.Message);
+                throw new JobException(ex.InnerException.Message);
             }
         }
 

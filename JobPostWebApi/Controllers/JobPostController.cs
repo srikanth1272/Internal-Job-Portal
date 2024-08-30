@@ -3,6 +3,7 @@ using JobPostLibrary.Repos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace JobPostWebApi.Controllers
 {
@@ -68,8 +69,8 @@ namespace JobPostWebApi.Controllers
             }
             catch (JobPostException ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
+
             }
         }
         [HttpPost("Job")]
@@ -102,8 +103,7 @@ namespace JobPostWebApi.Controllers
         [HttpDelete("{postId}")]
         public async Task<ActionResult> Delete(int postId)
         {
-            try
-            {
+           
                 string userName = "Harry";
                 string role = "admin";
                 string secretKey = "My Name is James, James Bond 007";
@@ -119,16 +119,15 @@ namespace JobPostWebApi.Controllers
                 {
                     await repo.RemoveJobPostAsync(postId);
                     return Ok();
+                 
                 }
                 else
                 {
-                    return BadRequest("Cannot delete the job");
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                    string errorMessage = errorObj.GetProperty("message").GetString();
+                    return BadRequest(errorMessage);
                 }
-            }
-            catch (JobPostException ex)
-            {
-                return BadRequest(ex.Message);
-            }
         }
         [HttpDelete("job/{jobId}")]
         public async Task<ActionResult> DeleteJob(string jobId)
@@ -141,7 +140,7 @@ namespace JobPostWebApi.Controllers
             }
             catch (JobPostException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
 

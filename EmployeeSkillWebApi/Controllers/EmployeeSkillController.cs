@@ -155,7 +155,7 @@ namespace EmployeeSkillWebApi.Controllers
             }
             catch (EmployeeSkillException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
     }

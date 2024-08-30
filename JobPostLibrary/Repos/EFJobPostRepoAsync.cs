@@ -20,7 +20,8 @@ namespace JobPostLibrary.Repos
 
             }
             catch (Exception ex) {
-                throw new JobPostException(ex.Message);       
+                throw new JobPostException(ex.InnerException.Message);
+
             }
         }
         public async Task RemoveJobAsync(string jobId)
@@ -32,7 +33,7 @@ namespace JobPostLibrary.Repos
                 await ctx.SaveChangesAsync();
             }
             catch(Exception ex){
-                throw new JobPostException(ex.Message);
+                throw new JobPostException(ex.InnerException.Message);
             }
         }
         public async Task AddJobPostAsync(JobPost jobPost)
@@ -86,7 +87,7 @@ namespace JobPostLibrary.Repos
                 await ctx.SaveChangesAsync();   
             }
             catch(Exception ex){
-                throw new JobPostException(ex.Message);
+                throw new JobPostException(ex.InnerException.Message);
             }
         }
 

@@ -158,7 +158,7 @@ namespace EmployeeWebApi.Controllers
             }
             catch (EmployeeException ex)
             {
-                return NotFound(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
     }

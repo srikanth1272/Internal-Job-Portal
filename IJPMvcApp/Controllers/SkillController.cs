@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
 namespace IJPMvcApp.Controllers
 {
     [Authorize]
@@ -39,15 +40,19 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async  Task<ActionResult> Create(Skill skill)
         {
-            try
-            {
+            
                 var response=await client.PostAsJsonAsync<Skill>("", skill);
-                response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch(HttpRequestException ex)
+            else
             {
-                throw;
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
             }
         }
 
@@ -97,13 +102,19 @@ namespace IJPMvcApp.Controllers
 
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
         {
-            try
-            {
+            
                 var response = await client.DeleteAsync($"{skillId}");
-                response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex) { throw; }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                throw new Exception(errorContent);
+            }
+
         }
         public async Task<ActionResult> GetBySkillLevel(string skillLevel)
         {

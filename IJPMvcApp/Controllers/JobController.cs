@@ -4,6 +4,7 @@ using IJPMvcApp.Models;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
 using System.Data.Common;
+using System.Text.Json;
 namespace IJPMvcApp.Controllers
 {
    [Authorize]
@@ -43,15 +44,19 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async  Task<ActionResult> Create(Job job)
         {
-            try
-            {
+            
                 var response = await client.PostAsJsonAsync<Job>("", job);
-                response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex)
+            else
             {
-                throw;
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
             }
         }
 
@@ -102,16 +107,19 @@ namespace IJPMvcApp.Controllers
 
         public async Task<ActionResult> Delete(string jobId, IFormCollection collection)
         {
-            try
-            {
+           
               var response= await client.DeleteAsync($"{jobId}");
-               response.EnsureSuccessStatusCode();
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                throw;
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                throw new Exception(errorContent);
             }
+
         }
     }
 }

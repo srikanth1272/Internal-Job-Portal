@@ -4,6 +4,8 @@ using JobLibrary;
 using JobLibrary.Models;
 using JobLibrary.Repos;
 using Microsoft.AspNetCore.Authorization;
+using System.Text.Json;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace JobWebApi.Controllers
 {
@@ -70,7 +72,8 @@ namespace JobWebApi.Controllers
             }
             catch (JobException ex)
             {
-                return BadRequest(ex.Message);   
+                return BadRequest(new { Message = ex.Message });
+
             }
         }
         [HttpPut("{jobId}")]
@@ -90,8 +93,7 @@ namespace JobWebApi.Controllers
         [HttpDelete("{jobId}")]
         public async Task<ActionResult> Delete(string jobId)
         {
-            try
-            {
+            
                 
                 string userName = "Harry";
                 string role = "admin";
@@ -126,33 +128,54 @@ namespace JobWebApi.Controllers
                         await client4.PostAsJsonAsync("Job/", new { JobId = jobId });
                         
                         }
-                       if (response1.IsSuccessStatusCode)
-                       {
+                        
+                         if (response1.IsSuccessStatusCode)
+                          {
                         HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobSkillSvc/") };
                         client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client5.PostAsJsonAsync("Job/", new { JobId = jobId });
-                        
-
 
                     }
+
                     if (response2.IsSuccessStatusCode)
-                       {
+                    {
                         HttpClient client6 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSvc/") };
                         client6.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
                         await client6.PostAsJsonAsync("Job/", new { JobId = jobId });
-                        
-
                     }
+                   
+                    string errorMessage = string.Empty;
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        var errContent = await response.Content.ReadAsStringAsync();
+                        var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                        errorMessage += errorObj.GetProperty("message").GetString()+"\n";
+                    }
+                     if (!response1.IsSuccessStatusCode)
+                     {
+                         var errContent = await response1.Content.ReadAsStringAsync();
+                         var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                          errorMessage += errorObj.GetProperty("message").GetString()+"\n";
+                        }
+                    if (!response2.IsSuccessStatusCode)
+                    {
+                    var errContent = await response2.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                    errorMessage += errorObj.GetProperty("message").GetString();
 
-                    return BadRequest("Cannot delete the job");
                 }
-               
+                  
+                    return BadRequest(errorMessage);
+
+
+
+
+
+                }
+
             }
-            catch(JobException ex) 
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+            
+        
 
         
     }
