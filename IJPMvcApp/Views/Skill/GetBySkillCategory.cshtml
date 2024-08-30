@@ -3,12 +3,9 @@
 @{
     ViewData["Title"] = "GetBySkillCategory";
 }
+<div class="container">
+<h1>Skills By Category</h1>
 
-<h1>GetBySkillCategory</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -42,14 +39,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SkillCategory)
             </td>
-            <td>
-                    @Html.ActionLink("Edit", "Edit", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "Details", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
-            </td>
         </tr>
 }     
 
     </tbody>
 </table>
-<a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary" style="margin-top: 15px;margin-bottom:15px">Back to List</a>
+</div>

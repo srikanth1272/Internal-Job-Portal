@@ -15,11 +15,13 @@
         }
 
         .navbar-brand {
-            margin-right: auto; /* Pushes the logo to the left */
+            margin-right: auto /* Pushes the logo to the left */
         }
 
         .navbar-nav {
-            margin-left: auto; /* Pushes nav items to the right */
+            margin-left: auto;
+            padding-left: 0; /* Remove left padding */
+            padding-right: 0;
         }
 
         .container-fluid {
@@ -30,8 +32,7 @@
             max-width:6%;
             height:auto;
         }
-
-
+        
     </style>
 </head>
 <body>
@@ -75,8 +76,8 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container1" >
+        <main role="main" class="pb-3" >
             @RenderBody()
         </main>
     </div>

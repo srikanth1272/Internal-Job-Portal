@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<div class="container">
 <h1>Details</h1>
 
 <div>
@@ -35,7 +35,8 @@
         </dd>
     </dl>
 </div>
-<div>
+ <div style="margin-top: 15px;margin-bottom:15px">
     @Html.ActionLink("Edit", "Edit", new { postId = Model.PostId, empId = Model.EmpId }, new { @class = "btn btn-primary" })
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary" style="margin-top: 15px;margin-bottom:15px">Back to List</a>
+</div>
 </div>

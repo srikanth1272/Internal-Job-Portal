@@ -31,12 +31,12 @@ body {
     position: relative;
 }
 
-/* Ensure content is not hidden behind background */
 .container {
     position:relative;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.8);
 }
+
 
 .home-page .custom-text {
     border: 2px solid red; 
@@ -68,17 +68,17 @@ body {
         color: #e4b0b0; 
     }
 
-/*Carsds*/
+/
 
 .sec{
-    background:none;
+    background-color:none;
+
 }
 
 
 .container1 {
-   width:80%;
-   margin:0 auto;
-   
+    width: 80%;
+    margin: 0 auto;
 }
 
 .card-container {
@@ -161,7 +161,7 @@ body {
 }
 
 .hero-section {
-    background: linear-gradient(135deg, #8f2b1442, #1181d3f5);
+    background: linear-gradient(135deg, #dbb7ae42, #1181d3f5);
     color: white;
     padding: 60px 0;
     text-align: center;
@@ -222,5 +222,17 @@ body {
     .footer p {
         margin: 0;
     }
-
-</style >
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: calc(var(--bs-gutter-y)* -1);
+    margin-right: calc(var(--bs-gutter-x)* -.5);
+    margin-left: calc(var(--bs-gutter-x)* -.5);
+    margin-bottom: calc(var(--bs-gutter-x)* -.5);
+}
+.btn {
+    margin-top: auto;
+}
+    </style >

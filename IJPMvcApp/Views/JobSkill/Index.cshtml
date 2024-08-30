@@ -1,15 +1,16 @@
 ﻿@model IEnumerable<IJPMvcApp.Models.JobSkill>
-
+<div class="container">
 @{
     ViewData["Title"] = "Index";
 }
+
 <h1 style="text-align: center; font-weight:bold">Index</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Job Skill</a>
 
 </p>
-<div class="container">
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -41,6 +42,8 @@
                         @Html.ActionLink("Edit", "Edit", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("ByJobId", "DetailsByJobId", new { jobId = item.JobId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("BySkillId", "DetailsBySkillId", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
 }
