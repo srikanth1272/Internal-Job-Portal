@@ -22,7 +22,7 @@ namespace IJPMvcApp.Models
             List<Job> jobs = await client.GetFromJsonAsync<List<Job>>("");
             foreach (Job job in jobs)
             {
-                jobIds.Add(new SelectListItem { Text = job.JobId, Value = job.JobId });
+                jobIds.Add(new SelectListItem { Text = $"{job.JobId} : {job.JobTitle}", Value = job.JobId  });
             }
             return jobIds;
         }
@@ -36,7 +36,7 @@ namespace IJPMvcApp.Models
             List<Skill> skills = await client.GetFromJsonAsync<List<Skill>>("");
             foreach (Skill skill in skills)
             {
-                skillIds.Add(new SelectListItem { Text = skill.SkillId, Value = skill.SkillId });
+                skillIds.Add(new SelectListItem { Text = $"{skill.SkillId} : {skill.SkillName}", Value = skill.SkillId });
             }
             return skillIds;
         }
@@ -50,7 +50,7 @@ namespace IJPMvcApp.Models
             List<Employee> employees = await client.GetFromJsonAsync<List<Employee>>("");
             foreach (Employee employee in employees)
             {
-                employeeIds.Add(new SelectListItem { Text = employee.EmpId, Value = employee.EmpId });
+                employeeIds.Add(new SelectListItem { Text = $"{employee.EmpId} : {employee.EmpName}", Value = employee.EmpId });
             }
             return employeeIds;
         }

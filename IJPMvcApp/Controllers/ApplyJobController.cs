@@ -1,8 +1,10 @@
-﻿using IJPMvcApp.Models;
+﻿
+using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -36,6 +38,9 @@ namespace IJPMvcApp.Controllers
         }
         public ActionResult Create()
         {
+            string token = HttpContext.Session.GetString("token");
+            client.DefaultRequestHeaders.Authorization = new
+            System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
             ApplyJob appliedJob = new ApplyJob();
             appliedJob.ApplicationStatus = "Reviewing";
             appliedJob.AppliedDate = DateOnly.FromDateTime(DateTime.Now);
@@ -46,14 +51,21 @@ namespace IJPMvcApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(ApplyJob appliedJob)
         {
-            try
+          
+            var response = await client.PostAsJsonAsync("", appliedJob);
+            if (response.IsSuccessStatusCode)
             {
-              
-                var response = await client.PostAsJsonAsync("", appliedJob);
-                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex) { throw; }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
+            }
+
         }
 
         [Route("ApplyJob/Edit/{postId}/{empId}")]

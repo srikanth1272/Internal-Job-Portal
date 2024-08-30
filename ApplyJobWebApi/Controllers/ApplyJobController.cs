@@ -74,7 +74,7 @@ namespace ApplyJobWebApi.Controllers
 
                 HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                var jobpost = await client.GetFromJsonAsync<JobPost>(""+appliedJob.PostId);
+                JobPost jobpost = await client.GetFromJsonAsync<JobPost>(""+appliedJob.PostId);
                 if (appliedJob.AppliedDate <= jobpost.LastDatetoApply)
                     await repo.AddApplyJobAsync(appliedJob);
                 else
@@ -83,7 +83,7 @@ namespace ApplyJobWebApi.Controllers
             }
             catch (ApplyJobException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
         [HttpPost("JobPost")]

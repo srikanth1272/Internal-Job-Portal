@@ -6,7 +6,7 @@ namespace IJPMvcApp.Models;
 
 public  class ApplyJob
 {
-    [Display(Name = "PostId")]
+    [Display(Name = "Post Id")]
     [Required(ErrorMessage = "Post ID is required")]
     public int PostId { get; set; }
 

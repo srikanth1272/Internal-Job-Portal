@@ -18,7 +18,7 @@ namespace IJPMvcApp
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
+           
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                  .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -31,6 +31,12 @@ namespace IJPMvcApp
             });
             
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                dbContext.Database.Migrate();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -45,8 +51,6 @@ namespace IJPMvcApp
             app.UseSession();
             
             app.UseRouting();
-          //  app.UseCors("AllowAll");
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
