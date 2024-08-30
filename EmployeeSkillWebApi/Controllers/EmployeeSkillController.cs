@@ -26,7 +26,7 @@ namespace EmployeeSkillWebApi.Controllers
             }
             catch(EmployeeSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
         [HttpPost("Employee")]
@@ -141,7 +141,7 @@ namespace EmployeeSkillWebApi.Controllers
             }
             catch (EmployeeSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -155,7 +155,7 @@ namespace EmployeeSkillWebApi.Controllers
             }
             catch (EmployeeSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
     }

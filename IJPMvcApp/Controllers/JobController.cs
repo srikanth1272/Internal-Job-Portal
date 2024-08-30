@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using IJPMvcApp.Models;
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
-using System.Data.Common;
-using System.Text.Json;
 namespace IJPMvcApp.Controllers
 {
    [Authorize]
@@ -48,10 +44,7 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception(errorMessage);
             }
         }
@@ -89,13 +82,11 @@ namespace IJPMvcApp.Controllers
         // POST: JobController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        
-         [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [Route("Job/Delete/{jobId}")]
 
         public async Task<ActionResult> Delete(string jobId, IFormCollection collection)
         {
-           
             var response= await client.DeleteAsync($"{jobId}");
             if (response.IsSuccessStatusCode)
             {
@@ -103,10 +94,9 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                throw new Exception(errorContent);
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
             }
-
         }
     }
 }

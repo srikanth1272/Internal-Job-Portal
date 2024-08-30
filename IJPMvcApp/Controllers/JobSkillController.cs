@@ -1,8 +1,6 @@
 ﻿using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -49,8 +47,7 @@ namespace IJPMvcApp.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Create(JobSkill jobSkill)
-        {
-           
+        {           
             var response=await client.PostAsJsonAsync("", jobSkill);
             if (response.IsSuccessStatusCode)
             {
@@ -58,10 +55,7 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();             
                 throw new Exception(errorMessage);
             }
         }
@@ -83,8 +77,8 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string jobId,string skillId, JobSkill jobSkill)
         {
-                await client.PutAsJsonAsync(""+jobId+"/"+skillId, jobSkill);
-                return RedirectToAction(nameof(Index));
+            await client.PutAsJsonAsync(""+jobId+"/"+skillId, jobSkill);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: JobSkillController/Delete/5
@@ -103,9 +97,8 @@ namespace IJPMvcApp.Controllers
         [Route("JobSkill/Delete/{jobId}/{skillId}")]
         public async Task<ActionResult> Delete(string jobId, string skillId, IFormCollection collection)
         {
-                var response=await client.DeleteAsync("" + jobId + "/" + skillId);
-                response.EnsureSuccessStatusCode();
-                return RedirectToAction(nameof(Index));
+            await client.DeleteAsync("" + jobId + "/" + skillId);
+            return RedirectToAction(nameof(Index));
         }
     }
  }

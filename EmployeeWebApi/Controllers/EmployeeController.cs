@@ -74,7 +74,7 @@ namespace EmployeeWebApi.Controllers
             }
             catch (EmployeeException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
         [HttpPost("Job")]
@@ -142,19 +142,9 @@ namespace EmployeeWebApi.Controllers
                 string errorMessage = string.Empty;
 
                 if (!response1.IsSuccessStatusCode)
-                {
-                    var errContent = await response1.Content.ReadAsStringAsync();
-                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
-                    errorMessage += errorObj.GetProperty("message").GetString()+ "<br/><br/>";
-                }
+                    errorMessage += await response1.Content.ReadAsStringAsync() + "<br/><br/>";
                 if (!response.IsSuccessStatusCode)
-                {
-                    var errContent = await response.Content.ReadAsStringAsync();
-                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
-                    errorMessage += errorObj.GetProperty("message").GetString();
-
-                }
-
+                    errorMessage += await response1.Content.ReadAsStringAsync() + "<br/><br/>";
                 return BadRequest(errorMessage);
             }
         }
@@ -169,7 +159,7 @@ namespace EmployeeWebApi.Controllers
             }
             catch (EmployeeException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
     }

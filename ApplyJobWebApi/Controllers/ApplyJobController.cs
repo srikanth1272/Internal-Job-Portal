@@ -88,7 +88,7 @@ namespace ApplyJobWebApi.Controllers
             }
             catch (ApplyJobException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -158,7 +158,7 @@ namespace ApplyJobWebApi.Controllers
             }
             catch (ApplyJobException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
                 
             }
         }
@@ -173,7 +173,7 @@ namespace ApplyJobWebApi.Controllers
             }
             catch (ApplyJobException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 

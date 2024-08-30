@@ -73,7 +73,7 @@ namespace JobPostWebApi.Controllers
             }
             catch (JobPostException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
 
             }
         }
@@ -129,9 +129,7 @@ namespace JobPostWebApi.Controllers
                 }
                 else
                 {
-                    var errorContent = await response.Content.ReadAsStringAsync();
-                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                    string errorMessage = errorObj.GetProperty("message").GetString();
+                    var errorMessage = await response.Content.ReadAsStringAsync();
                     return BadRequest(errorMessage);
                 }
         }
@@ -147,7 +145,7 @@ namespace JobPostWebApi.Controllers
             }
             catch (JobPostException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 

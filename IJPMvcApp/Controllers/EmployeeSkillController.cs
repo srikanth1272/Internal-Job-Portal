@@ -1,8 +1,6 @@
 ﻿using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -55,10 +53,7 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception(errorMessage);
             }
         }
@@ -97,8 +92,7 @@ namespace IJPMvcApp.Controllers
         [Route("EmployeeSkill/Delete/{empId}/{skillId}")]
         public async Task<ActionResult> Delete(string empId, string skillId, EmployeeSkill employeeSkill)
         {
-                var response=await client.DeleteAsync(""+empId +"/"+ skillId);
-                response.EnsureSuccessStatusCode();
+                await client.DeleteAsync(""+empId +"/"+ skillId);
                 return RedirectToAction(nameof(Index));
         }
     }

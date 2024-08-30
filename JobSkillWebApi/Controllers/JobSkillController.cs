@@ -75,7 +75,7 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -89,7 +89,7 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
 
             }
         }
@@ -104,7 +104,7 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
 
             }
         }
@@ -146,7 +146,7 @@ namespace JobSkillWebApi.Controllers
             }           
             catch (JobSkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
             }
         }
 
@@ -160,7 +160,7 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                 return BadRequest(new { Message = ex.Message });
+                 return BadRequest(ex.Message);
             }
         }
     }

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using System.Text.Json;
 namespace IJPMvcApp.Controllers
 {
     [Authorize]
@@ -48,10 +46,7 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception(errorMessage);
             }
         }
@@ -83,7 +78,7 @@ namespace IJPMvcApp.Controllers
 
         public async Task<ActionResult> Delete(string skillId)
         {
-            Skill skill=await client.GetFromJsonAsync<Skill>(""+skillId);
+            Skill skill = await client.GetFromJsonAsync<Skill>(""+skillId);
             return View(skill);
         }
 
@@ -94,8 +89,7 @@ namespace IJPMvcApp.Controllers
         [Route("Skill/Delete/{skillId}")]
 
         public async Task<ActionResult> Delete(string skillId, IFormCollection collection)
-        {
-            
+        {           
             var response = await client.DeleteAsync($"{skillId}");
             if (response.IsSuccessStatusCode)
             {
@@ -103,11 +97,9 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-
-                throw new Exception(errorContent);
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
             }
-
         }
         public async Task<ActionResult> GetBySkillLevel(string skillLevel)
         {

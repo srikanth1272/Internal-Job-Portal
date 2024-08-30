@@ -63,7 +63,7 @@ namespace SkillWebApi.Controllers
             }
             catch (SkillException ex)
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ex.Message);
 
             }
         }
@@ -121,17 +121,9 @@ namespace SkillWebApi.Controllers
                 string errorMessage = string.Empty;
                
                 if (!response1.IsSuccessStatusCode)
-                {
-                    var errContent = await response1.Content.ReadAsStringAsync();
-                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
-                    errorMessage += errorObj.GetProperty("message").GetString() + "<br/><br/>";
-                }
+                    errorMessage = await response1.Content.ReadAsStringAsync() + "<br/><br/>";
                 if (!response2.IsSuccessStatusCode)
-                {
-                    var errContent = await response2.Content.ReadAsStringAsync();
-                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
-                    errorMessage += errorObj.GetProperty("message").GetString();
-                }
+                    errorMessage = await response2.Content.ReadAsStringAsync() + "<br/><br/>";
 
                 return BadRequest(errorMessage);
 
