@@ -41,8 +41,8 @@
             <td>
                         @Html.ActionLink("Edit", "Edit", new { empId = item.EmpId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
                         @Html.ActionLink("Details", "Details", new { empId = item.EmpId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("Employees", "ByempId", new { empId = item.EmpId }, new { @class = "btn btn-primary" })
-                        @Html.ActionLink("Skills", "ByskillId", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("ByEmployeeId", "ByempId", new { empId = item.EmpId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("BySkillId", "ByskillId", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
                         @Html.ActionLink("Delete", "Delete", new { empId = item.EmpId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
             </td>
         </tr>

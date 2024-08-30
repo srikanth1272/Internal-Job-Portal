@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -42,15 +43,22 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(JobPost jobPost)
         {
-            try
+            
+         var response=await client.PostAsJsonAsync("", jobPost);
+            if (response.IsSuccessStatusCode)
             {
-                
- 
-                var response=await client.PostAsJsonAsync("", jobPost);
-                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex) { throw; }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
+            }
+
+
         }
         public ActionResult ApplyJob(int postId)
         {
@@ -66,13 +74,21 @@ namespace IJPMvcApp.Controllers
         
         public async Task<ActionResult> ApplyJob(ApplyJob applyJob)
         {
-            try
+            var response = await client2.PostAsJsonAsync("", applyJob);
+
+            if (response.IsSuccessStatusCode)
             {
-                var response = await client2.PostAsJsonAsync("", applyJob);
-                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex) { throw; }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
+            }
+
         }
 
         [Route("JobPost/Edit/{postId}")]
@@ -115,13 +131,19 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int postId, JobPost jobPost)
         {
-            try
-            {  
-                var response=await client.DeleteAsync("" + postId);
-                response.EnsureSuccessStatusCode();
+            var response = await client.DeleteAsync("" + postId);
+            
+            if (response.IsSuccessStatusCode)
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex) { throw; }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+               
+                throw new Exception(errorContent);
+            }
+
         }
     }
 }

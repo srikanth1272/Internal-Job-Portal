@@ -33,7 +33,7 @@ namespace EmployeeSkillLibrary.Repo
             }
             catch (Exception ex)
             {
-                throw new EmployeeSkillException(ex.Message);
+                throw new EmployeeSkillException(ex.InnerException.Message);
             }
         }
 
@@ -98,7 +98,7 @@ namespace EmployeeSkillLibrary.Repo
             }
             catch (Exception ex)
             {
-                throw new EmployeeSkillException(ex.Message);
+                throw new EmployeeSkillException(ex.InnerException.Message);
             }
         }
 
@@ -126,7 +126,7 @@ namespace EmployeeSkillLibrary.Repo
             }
             catch (Exception ex)
             {
-                throw new EmployeeSkillException(ex.Message);
+                throw new EmployeeSkillException(ex.InnerException.Message);
             }
         }
 

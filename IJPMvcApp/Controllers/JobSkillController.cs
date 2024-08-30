@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -49,13 +50,20 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles ="Admin")]
         public async Task<ActionResult> Create(JobSkill jobSkill)
         {
-            try
+           
+              var response=await client.PostAsJsonAsync("", jobSkill);
+            if (response.IsSuccessStatusCode)
             {
-                var response=await client.PostAsJsonAsync("", jobSkill);
-                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex) { throw; }
+            else
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
+            }
         }
 
 

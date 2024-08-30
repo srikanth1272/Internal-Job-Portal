@@ -16,11 +16,11 @@ namespace JobSkillLibrary.Repos
             try
             {
                 await ctx.Jobs.AddAsync(job);
-                ctx.SaveChangesAsync();
+               await  ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw new JobSkillException(ex.Message);
+                throw new JobSkillException(ex.InnerException.Message);
             }
         }
 
@@ -29,11 +29,11 @@ namespace JobSkillLibrary.Repos
             try
             {
                 await ctx.JobSkills.AddAsync(jobSkill);
-                ctx.SaveChangesAsync();
+               await  ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw new JobSkillException(ex.Message);
+                throw new JobSkillException(ex.InnerException.Message);
             }
         }
 
@@ -42,11 +42,11 @@ namespace JobSkillLibrary.Repos
             try
             {
                 await ctx.Skills.AddAsync(skill);
-                ctx.SaveChangesAsync();
+               await  ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
-                throw new JobSkillException(ex.Message);
+                throw new JobSkillException(ex.InnerException.Message);
             }
         }
 
@@ -118,7 +118,7 @@ namespace JobSkillLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new JobSkillException(ex.Message);
+                throw new JobSkillException(ex.InnerException.Message);
             }
         }
         public async Task RemoveSkillAsync(string skillId)
@@ -131,7 +131,7 @@ namespace JobSkillLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new JobSkillException(ex.Message);
+                throw new JobSkillException(ex.InnerException.Message);
             }
         }
 

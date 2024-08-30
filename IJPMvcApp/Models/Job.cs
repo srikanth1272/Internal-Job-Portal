@@ -14,7 +14,7 @@ namespace IJPMvcApp.Models
         [Display(Name = "Description")]
 
         public string JobDescription { get; set; } = null!;
-        [Range(10000,1000000000,ErrorMessage ="Salary must be greater than 10000")]
+        [Range(0,1000000000)]
         [Display(Name = "Salary")]
 
         public decimal Salary { get; set; }
