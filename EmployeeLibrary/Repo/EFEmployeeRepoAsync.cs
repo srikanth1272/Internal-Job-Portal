@@ -34,7 +34,7 @@ namespace EmployeeLibrary.Repo
             }
             catch (Exception ex)
             {
-                throw new EmployeeException(ex.Message);
+                throw new EmployeeException(ex.InnerException.Message);
             }
         }
 
@@ -90,7 +90,7 @@ namespace EmployeeLibrary.Repo
             }
             catch (Exception ex)
             {
-                throw new EmployeeException(ex.Message);
+                throw new EmployeeException(ex.InnerException.Message);
             }
         }
 

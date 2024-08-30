@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Azure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SkillLibrary;
 using SkillLibrary.Models;
 using SkillLibrary.Repos;
+using System.Text.Json;
 namespace SkillWebApi.Controllers
 {
     [Route("api/[controller]")]
@@ -61,7 +63,8 @@ namespace SkillWebApi.Controllers
             }
             catch (SkillException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
+
             }
         }
         [HttpPut("{skillId}")]
@@ -85,8 +88,7 @@ namespace SkillWebApi.Controllers
         [HttpDelete("{skillId}")]
         public async Task<ActionResult> Delete(string skillId)
         {
-            try
-            {
+            
                 
                 string userName = "Harry";
                 string role = "admin";
@@ -122,15 +124,29 @@ namespace SkillWebApi.Controllers
                         await client5.PostAsJsonAsync("Skill/", new { SkillId = skillId });
 
                     }
-                    return BadRequest("Cannot delete the job");
+                string errorMessage = string.Empty;
+               
+                if (!response1.IsSuccessStatusCode)
+                {
+                    var errContent = await response1.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                    errorMessage += errorObj.GetProperty("message").GetString() + "\n";
+                }
+                if (!response2.IsSuccessStatusCode)
+                {
+                    var errContent = await response2.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                    errorMessage += errorObj.GetProperty("message").GetString();
+
                 }
 
+                return BadRequest(errorMessage);
+
             }
 
-            catch (SkillException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+
+
+
         }
         [HttpGet("BySkillLevel/{skillLevel}")]
         public async Task<ActionResult> GetSkillsBySkillLevel(string skillLevel)

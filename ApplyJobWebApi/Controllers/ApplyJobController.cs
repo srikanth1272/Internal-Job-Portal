@@ -149,7 +149,8 @@ namespace ApplyJobWebApi.Controllers
             }
             catch (ApplyJobException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
+                
             }
         }
         [HttpDelete("Employee/{empId}")]

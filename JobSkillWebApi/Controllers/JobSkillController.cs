@@ -70,7 +70,7 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
         [HttpPost("Job")]
@@ -83,7 +83,8 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
+
             }
         }
         [HttpPost("Skill")]
@@ -96,7 +97,8 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
+
             }
         }
 
@@ -135,9 +137,10 @@ namespace JobSkillWebApi.Controllers
                 await jobSkillRepoAsync.RemoveJobAsync(jobId);
                 return Ok();
             }
-            catch (JobSkillException ex)
+                            
+catch (JobSkillException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
         [HttpDelete("Skill/{skillId}")]
@@ -150,7 +153,7 @@ namespace JobSkillWebApi.Controllers
             }
             catch (JobSkillException ex)
             {
-                return BadRequest(ex.Message);
+                 return BadRequest(new { Message = ex.Message });
             }
         }
     }

@@ -19,7 +19,8 @@ namespace SkillLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new SkillException(ex.Message);
+                throw new SkillException(ex.InnerException.Message);
+
             }
         }
 
