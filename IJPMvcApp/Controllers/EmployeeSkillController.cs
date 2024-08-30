@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -47,17 +48,20 @@ namespace IJPMvcApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(EmployeeSkill employeeSkill)
         {
-            try
+            var response=await client.PostAsJsonAsync("",employeeSkill);
+            if (response.IsSuccessStatusCode)
             {
-                var response=await client.PostAsJsonAsync("",employeeSkill);
-                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex)
+            else
             {
-                throw;
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                string errorMessage = errorObj.GetProperty("message").GetString();
+
+                throw new Exception(errorMessage);
             }
-        }
+            }
 
         // GET: EmployeeSkillController/Edit/5
         [Authorize(Roles = "Admin")]

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -46,16 +47,19 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(Employee employee)
         {
-            try
-            {
                 var response=await client.PostAsJsonAsync("", employee);
-                response.EnsureSuccessStatusCode();
-                return RedirectToAction(nameof(Index));
-            }
-            catch (HttpRequestException ex)
-            {
-                throw;
-            }
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    var errorContent = await response.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
+                    string errorMessage = errorObj.GetProperty("message").GetString();
+
+                    throw new Exception(errorMessage);
+                }    
         }
 
         // GET: EmployeeController/Edit/5

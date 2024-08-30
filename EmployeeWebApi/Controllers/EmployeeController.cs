@@ -72,7 +72,7 @@ namespace EmployeeWebApi.Controllers
             }
             catch (EmployeeException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
         [HttpPost("Job")]

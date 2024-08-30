@@ -26,7 +26,7 @@ namespace EmployeeSkillWebApi.Controllers
             }
             catch(EmployeeSkillException ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
         [HttpPost("Employee")]
