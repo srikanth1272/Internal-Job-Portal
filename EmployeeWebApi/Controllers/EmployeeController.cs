@@ -1,8 +1,10 @@
-﻿using EmployeeLibrary.Models;
+﻿using Azure;
+using EmployeeLibrary.Models;
 using EmployeeSkillLibrary.Repo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace EmployeeWebApi.Controllers
 {
@@ -104,47 +106,56 @@ namespace EmployeeWebApi.Controllers
         [HttpDelete("{empId}")]
         public async Task<ActionResult> Delete(string empId)
         {
-            try
+            string userName = "Harry";
+            string role = "admin";
+            string secretKey = "My Name is James, James Bond 007";
+            HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
+            string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
+
+
+            HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            var response = await client.DeleteAsync("Employee/" + empId);
+            HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
+            client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            var response1 = await client1.DeleteAsync("Employee/" + empId);
+            if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode)
             {
-                string userName = "Harry";
-                string role = "admin";
-                string secretKey = "My Name is James, James Bond 007";
-                HttpClient client2 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/AuthSvc/") };
-                string token = await client2.GetStringAsync($"{userName}/{role}/{secretKey}");
-
-
-                HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
-                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                var response = await client.DeleteAsync("Employee/" +empId);
-                HttpClient client1 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
-                client1.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                var response1 = await client1.DeleteAsync("Employee/" + empId);
-                if (response.IsSuccessStatusCode && response1.IsSuccessStatusCode)
-                {
-                    await employeeRepo.RemoveEmployeeDetailsAsync(empId);
-                    return Ok();
-                }
-                else
-                {
-                    if (response.IsSuccessStatusCode)
-                    {
-                        HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
-                        client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                        await client4.PostAsJsonAsync("Employee/", new { EmpId = empId });
-
-                    }
-                    if (response1.IsSuccessStatusCode)
-                    {
-                        HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
-                        client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                        await client5.PostAsJsonAsync("Employee/", new { EmpId = empId });
-                    }
-                    return BadRequest("Cannot delete the Employee");
-                }
+                await employeeRepo.RemoveEmployeeDetailsAsync(empId);
+                return Ok();
             }
-            catch (EmployeeException ex)
+            else
             {
-                return NotFound(ex.Message);
+                if (response.IsSuccessStatusCode)
+                {
+                    HttpClient client4 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/ApplyJobSvc/") };
+                    client4.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    await client4.PostAsJsonAsync("Employee/", new { EmpId = empId });
+
+                }
+                if (response1.IsSuccessStatusCode)
+                {
+                    HttpClient client5 = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/EmployeeSkillSvc/") };
+                    client5.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                    await client5.PostAsJsonAsync("Employee/", new { EmpId = empId });
+                }
+                string errorMessage = string.Empty;
+
+                if (!response1.IsSuccessStatusCode)
+                {
+                    var errContent = await response1.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                    errorMessage += errorObj.GetProperty("message").GetString() + "\n";
+                }
+                if (!response.IsSuccessStatusCode)
+                {
+                    var errContent = await response.Content.ReadAsStringAsync();
+                    var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errContent);
+                    errorMessage += errorObj.GetProperty("message").GetString();
+
+                }
+
+                return BadRequest(errorMessage);
             }
         }
 

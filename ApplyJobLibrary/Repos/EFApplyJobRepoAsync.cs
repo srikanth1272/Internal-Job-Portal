@@ -48,7 +48,7 @@ namespace ApplyJobLibrary.Repos
             }
             catch (Exception ex)
             {
-                throw new ApplyJobException("No Employee found for this employee id");
+                throw new ApplyJobException(ex.InnerException.Message);
             }
         }
 

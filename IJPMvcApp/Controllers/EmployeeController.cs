@@ -103,16 +103,16 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(string empId, IFormCollection collection)
         {
-            try
+            var response = await client.DeleteAsync("" + empId);
+            if (response.IsSuccessStatusCode)
             {
-
-                var response=await client.DeleteAsync("" + empId);
-                response.EnsureSuccessStatusCode();
                 return RedirectToAction(nameof(Index));
             }
-            catch (HttpRequestException ex)
+            else
             {
-                throw;
+                var errorContent = await response.Content.ReadAsStringAsync();
+
+                throw new Exception(errorContent);
             }
         }
     }
