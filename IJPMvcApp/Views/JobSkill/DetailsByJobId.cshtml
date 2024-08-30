@@ -3,12 +3,9 @@
 @{
     ViewData["Title"] = "DetailsByJobId";
 }
-
+<div class="container">
 <h1>DetailsByJobId</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -37,14 +34,17 @@
                 @Html.DisplayFor(modelItem => item.Experience)
             </td>
             <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary" }) 
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary" }) 
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-primary" })
-            </td>
+                        @Html.ActionLink("Edit", "Edit", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("ByJobId", "DetailsByJobId", new { jobId = item.JobId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("BySkillId", "DetailsBySkillId", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                    </td>
         </tr>
             <div>
-                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+                    <a asp-action="Index" class="btn btn-primary" style="margin-top: 15px;margin-bottom:15px"s>Back to List</a>
             </div>
 }
     </tbody>
 </table>
+</div>

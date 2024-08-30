@@ -3,14 +3,14 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<div class="container">
 <h1 style="text-align: center; font-weight:bold">Index</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Skill</a>
 
 </p>
-<div class="container">
+
     <table class="table table-striped">
     <thead>
         <tr>
@@ -47,14 +47,14 @@
             <td>
                         @Html.ActionLink("Edit", "Edit", new { skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("Details", "Details", new { skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
-                        @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
                         @Html.ActionLink("GetBySkillCategory", "GetBySkillCategory", new { skillCategory = item.SkillCategory }, new { @class = "btn btn-primary" }) 
-                        @Html.ActionLink("GetBySkillLevel", "GetBySkillLevel", new { skillLevel = item.SkillLevel }, new { @class = "btn btn-primary" }) 
+                        @Html.ActionLink("GetBySkillLevel", "GetBySkillLevel", new { skillLevel = item.SkillLevel }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
 
 
 
 
-            </td>
+                    </td>
         </tr>
 }
     </tbody>
