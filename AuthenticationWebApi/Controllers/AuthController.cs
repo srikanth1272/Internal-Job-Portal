@@ -10,12 +10,11 @@ namespace AuthenticationWebApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
-    {
-        private string GenerateJWT(string userName, string role, string secretKey)
+    {   private string GenerateJWT(string userName, string role, string secretKey)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(securityKey,
-                                SecurityAlgorithms.HmacSha256);
+                                  SecurityAlgorithms.HmacSha256);
             Claim[] claims = new Claim[]{
                 new Claim(ClaimTypes.Name, userName),
                 new Claim(ClaimTypes.Role, role),

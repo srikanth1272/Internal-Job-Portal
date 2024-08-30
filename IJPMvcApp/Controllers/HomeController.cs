@@ -14,7 +14,6 @@ namespace IJPMvcApp.Controllers
         {
             _logger = logger;
         }
-
         public async Task<IActionResult> Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -28,12 +27,10 @@ namespace IJPMvcApp.Controllers
             }
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();
         }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

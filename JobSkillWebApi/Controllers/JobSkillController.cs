@@ -15,14 +15,12 @@ namespace JobSkillWebApi.Controllers
         {
             jobSkillRepoAsync = repo;
         }
-
         [HttpGet]
         public async Task<ActionResult> GetAll()
         {
             List<JobSkill> jobskills=await jobSkillRepoAsync.GetAllJobSkillsAsync();
             return Ok(jobskills);
         }
-
         [HttpGet("{jobId}/{skillId}")]
         public async Task<ActionResult> Get(string jobId, string skillId)
         {
@@ -36,7 +34,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpGet("GetByJobId/{jobId}")]
         public async Task<ActionResult> GetByJobId(string jobId)
         {
@@ -50,7 +47,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpGet("{skillId}")]
         public async Task<ActionResult> GetBySkillId(string skillId)
         {
@@ -64,7 +60,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPost]
         public async Task<ActionResult> InsertJobSkill(JobSkill jobSkill)
         {
@@ -78,7 +73,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpPost("Job")]
         public async Task<ActionResult> InsertJob(Job job)
         {
@@ -93,7 +87,6 @@ namespace JobSkillWebApi.Controllers
 
             }
         }
-
         [HttpPost("Skill")]
         public async Task<ActionResult> InsertSkill(Skill skill)
         {
@@ -105,10 +98,8 @@ namespace JobSkillWebApi.Controllers
             catch (JobSkillException ex)
             {
                 return BadRequest(ex.Message);
-
             }
         }
-
         [HttpPut("{jobId}/{skillId}")]
         public async Task<ActionResult> Update(string jobId,string skillId,JobSkill jobSkill)
         {
@@ -122,7 +113,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpDelete("{jobId}/{skillId}")]
         public async Task<ActionResult> Delete(string jobId,string skillId)
         {
@@ -149,7 +139,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpDelete("Skill/{skillId}")]
         public async Task<ActionResult> DeleteSkill( string skillId)
         {
