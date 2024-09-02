@@ -1,10 +1,6 @@
-﻿
-using IJPMvcApp.Models;
+﻿using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
@@ -59,10 +55,7 @@ namespace IJPMvcApp.Controllers
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception(errorMessage);
             }
 
@@ -82,15 +75,8 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int postId, string empId, ApplyJob appliedJob)
         {
-            try
-            {
-                await client.PutAsJsonAsync($"{postId}/{empId}", appliedJob);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await client.PutAsJsonAsync($"{postId}/{empId}", appliedJob);
+            return RedirectToAction(nameof(Index));
         }
 
         [Route("ApplyJob/Delete/{postId}/{empId}")]
@@ -108,13 +94,8 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int postId, string empId, ApplyJob appliedJob)
         {
-            try
-            {
-                var response=await client.DeleteAsync($"{postId}/{empId}");
-                response.EnsureSuccessStatusCode();
+                await client.DeleteAsync($"{postId}/{empId}");
                 return RedirectToAction(nameof(Index));
-            }
-            catch (HttpRequestException ex) { throw; }
         }
     }
 }

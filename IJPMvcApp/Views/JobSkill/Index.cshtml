@@ -40,10 +40,10 @@
             </td>
             <td>
                         @Html.ActionLink("Edit", "Edit", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
-                        @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" }) 
-                        @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Details", "Details", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })                        
                         @Html.ActionLink("ByJobId", "DetailsByJobId", new { jobId = item.JobId }, new { @class = "btn btn-primary" })
                         @Html.ActionLink("BySkillId", "DetailsBySkillId", new { skillId = item.SkillId }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Delete", "Delete", new { jobId = item.JobId, skillId = item.SkillId }, new { @class = "btn btn-primary" })
             </td>
         </tr>
 }

@@ -24,7 +24,6 @@ namespace EmployeeLibrary.Repo
                 throw new EmployeeException(ex.InnerException.Message);
             }
         }
-
         public async Task AddJobAsync(Job job)
         {
             try

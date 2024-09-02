@@ -1,12 +1,10 @@
 ﻿using IJPMvcApp.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace IJPMvcApp.Controllers
 {
-  [Authorize]
+    [Authorize]
     public class JobPostController : Controller
     {
         static HttpClient client = new HttpClient() { BaseAddress = new Uri("http://localhost:5003/JobPostSvc/") };
@@ -42,23 +40,17 @@ namespace IJPMvcApp.Controllers
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create(JobPost jobPost)
-        {
-            
-         var response=await client.PostAsJsonAsync("", jobPost);
+        {           
+            var response=await client.PostAsJsonAsync("", jobPost);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception(errorMessage);
             }
-
-
         }
         public ActionResult ApplyJob(int postId)
         {
@@ -75,20 +67,15 @@ namespace IJPMvcApp.Controllers
         public async Task<ActionResult> ApplyJob(ApplyJob applyJob)
         {
             var response = await client2.PostAsJsonAsync("", applyJob);
-
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-                var errorObj = System.Text.Json.JsonSerializer.Deserialize<JsonElement>(errorContent);
-                string errorMessage = errorObj.GetProperty("message").GetString();
-
+                var errorMessage = await response.Content.ReadAsStringAsync();
                 throw new Exception(errorMessage);
             }
-
         }
 
         [Route("JobPost/Edit/{postId}")]
@@ -105,15 +92,8 @@ namespace IJPMvcApp.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int postId, JobPost jobPost)
         {
-            try
-            {
                 await client.PutAsJsonAsync(""+postId, jobPost);
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         [Route("JobPost/Delete/{postId}")]
@@ -123,7 +103,6 @@ namespace IJPMvcApp.Controllers
             JobPost jobPost = await client.GetFromJsonAsync<JobPost>("" + postId);
             return View(jobPost); 
         }
-
         
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,18 +111,15 @@ namespace IJPMvcApp.Controllers
         public async Task<ActionResult> Delete(int postId, JobPost jobPost)
         {
             var response = await client.DeleteAsync("" + postId);
-            
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                var errorContent = await response.Content.ReadAsStringAsync();
-               
-                throw new Exception(errorContent);
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                throw new Exception(errorMessage);
             }
-
         }
     }
 }

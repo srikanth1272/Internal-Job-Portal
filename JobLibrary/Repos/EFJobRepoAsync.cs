@@ -38,7 +38,7 @@ namespace JobLibrary.Repos
                 Job job = await (from j in ctx.Jobs where j.JobId == jobId select j).FirstAsync();
                 return job;
             }
-            catch (Exception ex)
+            catch
             {
                 throw new JobException("No Such JobId Found");
             }

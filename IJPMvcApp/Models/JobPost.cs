@@ -16,10 +16,12 @@ public  class JobPost
 
 
     [Display(Name = "Date Of Posting")]
+    [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "Invalid date format. Use yyyy-MM-dd.")]
     public DateOnly DateofPosting { get; set; }
 
     [Display(Name = "Last Date")]
-    public DateOnly LastDatetoApply { get; set; }
+    [RegularExpression(@"\d{4}-\d{2}-\d{2}", ErrorMessage = "Invalid date format. Use yyyy-MM-dd.")]
+    public DateOnly? LastDatetoApply { get; set; }
 
     [Display(Name = "Vacancies")]
     [Range(1 ,100, ErrorMessage = "Vacancies must be above zero")]
