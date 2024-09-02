@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace JobSkillLibrary.Repos
-{
-    public class EFJobSkillRepoAsync : IJobSkillRepoAsync
+{  public class EFJobSkillRepoAsync : IJobSkillRepoAsync
     {
         JobSkillDBContext ctx=new JobSkillDBContext();
         public async Task AddJobAsync(Job job)
@@ -23,39 +22,35 @@ namespace JobSkillLibrary.Repos
                 throw new JobSkillException(ex.InnerException.Message);
             }
         }
-
         public async Task AddJobSkillAsync(JobSkill jobSkill)
         {
             try
             {
                 await ctx.JobSkills.AddAsync(jobSkill);
-               await  ctx.SaveChangesAsync();
+                await  ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 throw new JobSkillException(ex.InnerException.Message);
             }
         }
-
         public async Task AddSkillAsync(Skill skill)
         {
             try
             {
                 await ctx.Skills.AddAsync(skill);
-               await  ctx.SaveChangesAsync();
+                await  ctx.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 throw new JobSkillException(ex.InnerException.Message);
             }
         }
-
         public async Task<List<JobSkill>> GetAllJobSkillsAsync()
         {
             List<JobSkill> jobskills=await ctx.JobSkills.ToListAsync();
             return jobskills;
         }
-
         public async Task<JobSkill> GetJobSkillByJobIdandSkillIdAsync(string jobId, string skillId)
         {
             try
@@ -68,7 +63,6 @@ namespace JobSkillLibrary.Repos
                 throw new JobSkillException(ex.Message);
             }
         }
-
         public async Task<List<JobSkill>> GetJobSkillsByJobIdAsync(string jobId)
         {
                 List<JobSkill> jobskills = await (from js in ctx.JobSkills where js.JobId == jobId select js).ToListAsync();
@@ -81,7 +75,6 @@ namespace JobSkillLibrary.Repos
                 throw new JobSkillException("No JobSkill Found for given JobId");
                }
         }
-
         public async Task<List<JobSkill>> GetJobSkillsBySkillIdAsync(string skillId)
         {
             List<JobSkill> jobskills = await (from js in ctx.JobSkills where js.SkillId == skillId select js).ToListAsync();
@@ -94,7 +87,6 @@ namespace JobSkillLibrary.Repos
                 throw new JobSkillException("No JobSkill Found for given SkillId");
             }
         }
-
         public async Task RemoveJobSkillAsync(string jobId, string skillId)
         {
             try
@@ -134,7 +126,6 @@ namespace JobSkillLibrary.Repos
                 throw new JobSkillException(ex.InnerException.Message);
             }
         }
-
         public async Task UpdateJobSkillAsync(string jobId, string skillId, JobSkill jobSkill)
         {
             try

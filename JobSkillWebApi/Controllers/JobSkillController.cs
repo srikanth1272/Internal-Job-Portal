@@ -101,7 +101,6 @@ namespace JobSkillWebApi.Controllers
 
             }
         }
-
         [HttpPut("{jobId}/{skillId}")]
         public async Task<ActionResult> Update(string jobId,string skillId,JobSkill jobSkill)
         {
@@ -115,7 +114,6 @@ namespace JobSkillWebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
         [HttpDelete("{jobId}/{skillId}")]
         public async Task<ActionResult> Delete(string jobId,string skillId)
         {
@@ -138,7 +136,7 @@ namespace JobSkillWebApi.Controllers
                 return Ok();
             }
                             
-catch (JobSkillException ex)
+            catch (JobSkillException ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }

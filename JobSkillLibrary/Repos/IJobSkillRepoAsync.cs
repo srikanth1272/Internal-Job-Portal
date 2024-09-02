@@ -20,7 +20,5 @@ namespace JobSkillLibrary.Repos
         Task RemoveJobAsync(string jobId);
         Task AddSkillAsync(Skill skill);
         Task RemoveSkillAsync(string skillId);
-
-
     }
 }
